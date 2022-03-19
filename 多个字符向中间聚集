@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<string.h>
+#include<Windows.h>
+#include<stdlib.h>
+int main()
+{
+char arr1[]="I love Soccer!!!!";
+char arr2[]="#################";
+int left=0;//左下标
+int right=strlen(arr1);//右下标    strlen的头文件必须是string.h
+while(left<=right)
+{
+arr2[left]=arr1[left];
+arr2[right]=arr1[right];
+left++;
+right--;
+Sleep(1000);//让画面停止一秒钟  头文件必须是#include<Windows.h>
+system("cls");  //system是一个执行系统命令的函数  头文件是stdlib.h     cls--清空屏幕
+printf("%s\n",arr2);
+}
+return 0;
+}
