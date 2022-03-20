@@ -1,0 +1,17 @@
+#include<stdio.h>
+int runnian(int n)
+{
+if(n%4==0&&n%100!=0||n%400==0)
+return 1;
+return 0;
+}
+int main()
+{
+int a;
+scanf("%d",&a);
+if(runnian(a)==1)
+printf("该年是闰年\n");
+else if(runnian(a)==0)
+printf("该年不是闰年\n");
+return 0;
+}
