@@ -3,13 +3,14 @@
 //结构体
  
 struct BOOK{
+//成员变量
 	char name[20];//C语言程序设计
 	short price;//价格 
 };
 int main()
 {
 	struct BOOK b1={"C语言程序设计",55}; 
-	struct BOOK* pd=&b1;
+	struct BOOK* pd=&b1;      //结构体指针pd
 	strcpy(b1.name,"语文"); 
 	printf("书名是：%s\n",pd->name);
 	printf("价格是：%d\n",pd->price);
