@@ -1,0 +1,28 @@
+#include<stdio.h>
+int my_strlen(char* arr)
+{
+	char* start = arr;
+	char* end = arr;
+	while(*end != '\0')
+	{
+		end++;
+	}
+	return end - start;
+}
+void revers_strlen(char arr[])
+{
+int len=my_strlen(arr);
+int temp=arr[0];
+arr[0]=arr[len-1];
+arr[len-1]='\0';
+if(my_strlen(arr+1)>=2)
+revers_strlen(arr+1);
+arr[len-1]=temp;
+}
+int main()
+{
+char arr[]="abcdef";
+revers_strlen(arr);
+printf("%s\n",arr);
+return 0;
+}
