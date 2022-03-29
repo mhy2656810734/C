@@ -1,0 +1,22 @@
+//核心思想：按位异或    当两个二进制数按位异或时，相同则为0，相异则为1；然后再统计有几个1即可
+#include<stdio.h>
+int get(int i,int j)
+{
+int count=0;
+int n=i^j;
+while(n)
+{
+n=n&(n-1);
+count++;
+}
+return count++;
+}
+int main()
+{
+int x,y;
+int i;
+scanf("%d%d",&x,&y);
+i=get(x,y);
+printf("%d\n",i);
+return 0;
+}
