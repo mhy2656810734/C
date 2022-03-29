@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+int arr[10]={0};
+int i=0;
+int* p=arr;
+for(i=0;i<10;i++)
+{
+*(p+i)=i;
+}
+for(i=0;i<10;i++)
+{
+printf("%d ",*(p+i));
+}
+return 0;
+}
