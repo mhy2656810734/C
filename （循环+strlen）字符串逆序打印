@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+void print(char arr[])
+{
+int left=0;
+int i=0;
+strlen(arr)
+int right=strlen(arr)-1;
+while(left<right)
+{
+char temp;
+temp=arr[left];
+arr[left]=arr[right];
+arr[right]=temp;
+left++;
+right--;
+}
+for(i=0;i<=strlen(arr);i++)
+{
+printf("%c",arr[i]);
+}
+}
+int main()
+{
+char arr[]="abcdef";
+print(arr);
+return 0;
+}
