@@ -2,7 +2,7 @@
 #include<assert.h>
 int my_strlen(const char* str)
 {
-	assert(str != NULL);
+	assert(str != NULL);//保证指针的有效性
 	int count = 0;
 	while (*str != '\0')
 	{
