@@ -1,0 +1,19 @@
+#include<stdio.h>
+my_strcpy(char* dest,char* src)
+{
+while(*src!='\0')
+{
+*dest=*src;
+dest++;
+src++;
+}
+*dest=*src;//跳出循环后，将src中的'\0'也复制到dest中
+}
+int main()
+{
+char arr1[]="###############";
+char arr2[]="bit";
+my_strcpy(arr1,arr2);
+printf("%s\n",arr2);
+return 0;
+}
