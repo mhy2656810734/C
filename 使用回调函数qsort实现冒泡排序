@@ -40,8 +40,6 @@
 //	return 0;
 //}
 
-
-//比较字符串
 struct Stu
 {
 	char name[10];
@@ -55,7 +53,12 @@ void text1()
 {
 	struct Stu s[3] = { {"zhang san",20},{"lisi",30},{"wang wu",18} };
 	int sz = sizeof(s) / sizeof(s[0]);
-	qsort(s, sz, sizeof(s[0]), cmp_s_by_name);
+	qsort(s, sz, sizeof(s[0]),cmp_s_by_name);
+	int i = 0;
+	for (i = 0; i < 3; i++)
+	{
+		printf("%s ", s[i]);
+	}
 }
 int main()
 {
