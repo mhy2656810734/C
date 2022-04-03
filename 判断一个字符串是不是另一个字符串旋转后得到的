@@ -1,0 +1,98 @@
+
+//第一种方法：使用库函数
+
+
+//如果是返回1 不是返回0
+//stract(s1,s2)  意思是将字符串s1追加到字符串s2后面，但是不能自己追加自己，程序会奔溃
+//可以使用strncat(s1,s1,strlen(s1))  追加s1字符串长度
+//strstr  找子串 
+//#include<stdio.h>
+//#include<string.h>
+//#include<stdlib.h>
+//int is_left_move(char* str1, char* str2)
+//{
+//	int len1 = strlen(str1);
+//	int len2 = strlen(str2);
+//	if (len1 != len2)
+//		return 0;
+//	strncat(str1, str1, 6);//此时str1="abcdefabcdef"
+//	char* ret=strstr(str1, str2);       //strstr函数不是子串的话返回空指针(NULL)，是的话返回str2的地址
+//	if (ret == NULL)
+//	{
+//		return 0;
+//	}
+//	else
+//		return 1;
+//}
+//int main()
+//{
+//	char arr1[30] = "abcdef";
+//	char arr2[] = "cdefa";
+//	int ret=is_left_move(arr1, arr2);
+//	if (ret == 1)
+//	{
+//		printf("Yes\n");
+//	}
+//	else {
+//		printf("NO\n");
+//	}
+//	return 0;
+//}
+
+
+//第二种方法，暴力求解法
+#include<stdio.h>
+#include<assert.h>
+#include<string.h>
+void reverse(char* left, char* right)
+{
+	assert(left != NULL);
+	assert(right != NULL);
+	while (left < right)
+	{
+		char tmp = *left;
+		*left = *right;
+		*right = tmp;
+		left++;
+		right--;
+	}
+}
+void left_move(char* arr1,int k)
+{
+	assert(arr1);
+	int len = strlen(arr1);
+	assert(k < len);
+	reverse(arr1, arr1 + k - 1);
+	reverse(arr1 + k, arr1 + len - 1);
+	reverse(arr1, arr1 + len - 1);
+		
+	
+}
+int is_left_move(char* str1, char* str2)
+{
+	//str1全部翻转结果与str2比较，有相同则返会1，无则返回0
+	int len = strlen(str1);
+	int i = 0;
+	for (i = 0; i < len; i++)
+	{
+		//str1每翻转一次，数据都会改变
+		left_move(str1, 1);
+		int ret=strcmp(str1, str2);
+		if (ret == 0)
+			return 1;
+	}
+	return 0;
+}
+int main()
+{
+	char arr1[] = "abcdef";
+	char arr2[] = "bcdefa";
+	int ret = is_left_move(arr1, arr2);
+	if (ret == 1)
+	{
+		printf("YES\n");
+	}
+	else
+		printf("NO\n");
+	return 0;
+}
