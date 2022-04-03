@@ -16,7 +16,7 @@ int main()
 		temp = i;
 		while (temp)
 		{
-			sum += pow(temp % 10, n);
+			sum +=(int)pow(temp % 10, n);
 			temp /= 10;
 		}
 		//比较i 和 sum
