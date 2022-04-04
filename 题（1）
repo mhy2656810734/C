@@ -1,0 +1,212 @@
+// 99乘法表
+//#include<stdio.h>
+//int main()
+//{
+//	int i = 0, j = 0;
+//	int n = 0;
+//	scanf("%d",&n);
+//	for (i = 1; i <= n; i++)
+//	{
+//		for (j = 1; j <= i; j++)
+//		{
+//			printf("%d * %d=%-2d ", i, j, i * j);
+//		}
+//		printf("\n");
+//	}
+//	return 0;
+//}
+//goto语句执行关机命令
+//#include<stdio.h>
+//#include<string.h>
+//#include<stdlib.h>
+//int main()
+//{
+//	char n[30];
+//	system("shutdown -s -t 600");
+//	again:
+//		printf("您的电脑将在600秒后关机，请输入我是帅哥停止关机\n");
+//		scanf("%s", &n);
+//		if (strcmp(n, "我是帅哥") == 0)
+//		{
+//			system("shutdown -a");
+//		}
+//		else
+//		{
+//			printf("输入错误，请重新输入:>\n");
+//			goto again;
+//		}
+//
+//	return 0;
+//}
+//#include<stdio.h>
+//#include<string.h>
+//int main()
+//{
+//	char arr1[] = "好好学习";
+//	char arr2[] = "##########";
+//	strcpy(arr1, arr1);
+//	printf("%s", arr2);
+//	return 0;
+//}
+
+//struct 结构体
+//#include<stdio.h>
+//typedef struct stu {
+//	char name[20];
+//	long int age;
+//}stu;
+//int main()
+//{
+//	stu s [2] = {{"haiyang",18},{"lisi",20}};
+//    stu* p = &s;
+//	printf("%s", (*(p+1)).name);
+//	return 0;
+//}
+
+//猜数字游戏
+//#include<stdio.h>
+//#include<time.h>
+//void menu()
+//{
+//	printf("******************************\n");
+//	printf("**1.开始游戏      0.退出游戏**\n");
+//	printf("******************************\n");
+//}
+//void game()
+//{
+//	int ret = rand() % 100 + 1;
+//	int n;
+//	while (1)
+//	{
+//		printf("请输入猜测的数字:> ");
+//		scanf("%d", &n);
+//		if (n > ret)
+//		{
+//			printf("猜大了！\n");
+//		}
+//		else if (n < ret)
+//		{
+//			printf("猜小了！\n");
+//		}
+//		else
+//		{
+//			printf("恭喜你，猜对了！\n");
+//			break;
+//		}
+//	}
+//}
+//void text()
+//{
+//	int n = 0;
+//	do
+//	{
+//		menu();
+//		srand((unsigned int)time NULL);
+//		printf("请输入数字进行选择:>\n");
+//		scanf("%d", &n);
+//		switch (n)
+//		{
+//		case 1:
+//			game();
+//			break;
+//		case 0:
+//			printf("退出游戏:>\n");
+//			break;
+//		default:
+//			printf("输入错误，请重新输入\n");
+//			break;
+//		}
+//			
+//	} while (n);
+//}
+//int main()
+//{
+//	int n;
+//	text();
+//	return 0;
+//}
+
+//传地址，使得每调用一次函数，使得num+1
+//#include<stdio.h>
+//void Add(int* p)
+//{
+//	(*p)++;
+//}
+//int main()
+//{
+//	int num = 0;
+//	Add(&num);
+//	printf("%d\n", num);
+//	Add(&num);
+//	printf("%d\n", num);
+//}
+//#include<stdio.h>
+//int main()
+//{
+//	int a = 0, b = 0, c = 0;
+//	int t = 0;
+//	scanf("%d%d%d", &a, &b, &c);
+	//if (a < b)
+	//{
+	//	t = a;
+	//	a = b;
+	//	b = t;
+	//}
+	//if (a < c)
+	//{
+	//	t = a;
+	//	a = c;
+	//	c = t;
+	//}
+	//if (b < c)
+	//{
+	//	t = c;
+	//	c = b;
+	//	b = t;
+	//}
+//	
+//	printf("%d %d %d", a, b, c);
+//	return 0;
+//}
+//#include<stdio.h>
+//void swap(int* a, int* y)
+//{
+//	int tmp = *a;
+//	*a = *y;
+//	*y = tmp;
+//}
+//int main()
+//{
+//	int x, y;
+//	scanf("%d%d", &x, &y);
+//	swap(&x, &y);
+//	printf("%d %d\n", x, y);
+//	return 0;
+//}
+
+#include<stdio.h>
+int Max(int a, int b, int c)
+{
+	int t = 0;
+	if (a < b)
+	{
+		t = a;
+		a = b;
+		b = t;
+	}
+	if (a < c)
+	{
+		t = a;
+		a = c;
+		c = t;
+	}
+	return a;
+}
+int main()
+{
+	int a, b, c;
+	scanf("%d%d%d", &a, &b, &c);
+	int ret = Max(a, b, c);
+	printf("%d\n", ret);
+	return 0;
+}
