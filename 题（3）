@@ -124,3 +124,77 @@ int main()
 	printf("%d", count);
 	return 0;
 }
+//#include<stdio.h>
+//int main()
+//{
+//	int n, k, r;
+//	scanf("%d%d", &n, &k);
+//	while (r = n % k)
+//	{
+//		n = k;
+//		k = r;
+//	}
+//	printf("%d", k);
+//	return 0;
+//}
+//#include<stdio.h>
+//#include<assert.h>
+//void text(int arr[],int sz,int n)
+//{
+//	assert(arr);
+//	int left = 0;
+//	int right = sz - 1;
+//	while (left <= right)
+//	{
+//		int mid = (left + right) / 2;
+//		if (arr[mid] < n)
+//		{
+//			left = mid + 1;
+//		}
+//		else if (arr[mid] > n)
+//		{
+//			right = mid - 1;
+//		}
+//		else
+//		{
+//			printf("找到了！\n");
+//			printf("下标为：%d\n", mid);
+//			break;
+//		}
+//	}
+//	if (left > right)
+//	{
+//		printf("找不到\n");
+//	}
+//}
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	int n = 0;
+//	scanf("%d", &n);
+//	text(arr,sz,n);
+//	return 0;
+//}
+//#include<stdio.h>
+//#include<string.h>
+//#include<windows.h>
+//int main()
+//{
+//	char arr1[] = "##########";
+//	char arr2[] = "Hello word";
+//	int left = 0;
+//	int len = strlen(arr1);
+//	int right = len - 1;
+//	while (left <= right)
+//	{
+//		arr1[left] = arr2[left];
+//		arr1[right] = arr2[right];
+//		right--;
+//		left++;
+//		Sleep(1000);
+//		system("cls");
+//		printf("%s\n", arr1);
+//	}
+//	return 0;
+//}
