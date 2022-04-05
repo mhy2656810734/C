@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<assert.h>
+char* my_strstr(const char* p1, const char* p2)
+{
+	assert(p1 && p2);
+	char* s1 = p1;
+	char* s2 = p2;
+	char* start = p1;
+	if (*p2 == '\0')
+	{
+		return p1;
+	}
+	while(*start)
+	{
+		s1 = start  ;
+		s2 = p2;
+		while((*s1 != '\0') && (*s2 != '\0') && (*s1 == *s2))
+		{
+			s1++;
+			s2++;
+		}
+		if (*s2 == '\0')
+		{
+			return start;//找到子串
+		}
+		start++;
+	}
+	return NULL;//找不到子串
+}
+int main()
+{
+	const char* p1 = "abbcdef";
+	const char* p2 = "bc";
+	char* ret=my_strstr(p1, p2);
+	if (ret == NULL)
+	{
+		printf("不是子串！\n");
+	}
+	else
+		printf("是子串:%s\n", ret);
+	return 0;
+}
