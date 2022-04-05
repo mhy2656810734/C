@@ -1,0 +1,12 @@
+#include<stdio.h>
+int main()
+{
+	char arr[] = "198.125.146.178";
+	char* p = ".";
+	char* ret = NULL;
+	for (ret = strtok(arr, p); ret != NULL;ret=strtok(NULL,p))//第一个参数是要分割的字符串，第二个是要分割的字符串中包含的分割符
+	{
+		printf("%s\n", ret);
+	}
+	return 0;
+}
