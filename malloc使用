@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+#include<errno.h>
+#include<stdlib.h>
+int main()
+{
+	//malloc申请成功返回地址，失败返回空指针NULL
+	int* p = (int*)malloc(sizeof(int));//向内存申请10个整形空间
+	if (p == NULL)
+	{
+		//打印内存失败原因
+		printf("%s\n", strerror(errno));
+	}
+	else
+	{
+		//申请成功可以使用
+		int i = 0;
+		for (i = 0; i < 10; i++)
+		{
+			*(p + i) = i;
+			printf("%d ", *(p + i));
+		}
+	}
+	//当动态申请的空间不在使用的时候
+	//就应该释放空间
+	free(p);
+	return 0;
+}
