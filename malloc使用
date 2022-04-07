@@ -24,5 +24,6 @@ int main()
 	//当动态申请的空间不在使用的时候
 	//就应该释放空间
 	free(p);
+	p = NULL;
 	return 0;
 }
