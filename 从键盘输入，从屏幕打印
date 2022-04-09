@@ -1,0 +1,14 @@
+#include<stdio.h>
+struct S
+{
+	int n;
+	double s;
+	char arr[10];
+};
+int main()
+{
+	struct S s = { 0 };
+	fscanf(stdin, "%d %lf %s", &(s.n), &(s.s), s.arr);
+	fprintf(stdout, "%d %lf %s", s.n,s.s,s.arr);
+	return 0;
+}
