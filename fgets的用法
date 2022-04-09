@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+	char buf[1024] = { 0 };
+	//打开文件
+	FILE* pf = fopen("text.txt", "r");
+	if (pf == NULL)
+	{
+		return 0;
+	}
+	//读文件
+	fgets(buf, 2024, pf);//第一个参数，读出的字符串存到哪里，第二个参数读多少，第三个参数从哪读
+	printf("%s", buf);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
