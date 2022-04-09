@@ -1,0 +1,19 @@
+#include<stdio.h>
+struct S
+{
+	int n;
+	double s;
+	char arr[10];
+};
+int main()
+{
+	struct S s = { 100,3.14,"bit" };
+	struct S tmp = { 0 };
+	char buf[1024] = { 0 };
+	//把格式化的数据转换成字符串存储到buf中
+	sprintf(buf, "%d %lf %s", s.n, s.s, s.arr);
+	//从buf读取格式化的数据到tmp中
+	sscanf(buf, "%d %lf %s", &(tmp.n), &(tmp.s), tmp.arr);
+	printf("%d %lf %s", tmp.n, tmp.s, tmp.arr);
+	return 0;
+}
