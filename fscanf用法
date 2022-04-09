@@ -1,0 +1,20 @@
+#include<stdio.h>
+struct S
+{
+	int n;
+	double s;
+	char arr[10];
+};
+int main()
+{
+	struct S s = {0};
+	FILE* pf = fopen("text.txt", "r");
+	if (pf == NULL)
+	{
+		return 0;
+	}
+	//初始化的输出数据
+	fscanf(pf, "%d %lf %s", &(s.n), &(s.s), s.arr);
+	printf("%d %lf %s", s.n, s.s, s.arr);
+	return 0;
+}
