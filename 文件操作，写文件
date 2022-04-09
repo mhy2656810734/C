@@ -1,0 +1,23 @@
+//打开一个文件
+#include<stdio.h>
+#include<string.h>
+#include<errno.h>
+int main()
+{
+	//打开文件text.txt
+	//相对地址text.txt
+	FILE* pfWrite = fopen("text.txt", "w");
+	if (pfWrite == NULL)
+	{
+		printf("%s\n", strerror(errno));
+	}
+	//打开成功
+	//开始读文件
+	fputc('b', pfWrite);
+	fputc('i', pfWrite);
+	fputc('t', pfWrite);
+	//关闭文件
+	fclose(pfWrite);
+	pfWrite = NULL;
+	return 0;
+}
