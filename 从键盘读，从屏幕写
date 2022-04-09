@@ -1,0 +1,9 @@
+#include<stdio.h>
+int main()
+{
+	//从键盘读
+	int ch=fgetc(stdin);
+	//从屏幕写
+	fputc(ch, stdout);
+	return 0;
+}
