@@ -1,0 +1,21 @@
+#include<stdio.h>
+struct S
+{
+	int n;
+	double s;
+	char arr[10];
+};
+int main()
+{
+	struct S s = { 100,3.14,"bit" };
+	FILE* pf = fopen("text.txt", "w");
+	if (pf == NULL)
+	{
+		return 0;
+	}
+	//格式化的形式写文件
+	fprintf(pf, "%d %lf %s", s.n, s.s, s.arr);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
