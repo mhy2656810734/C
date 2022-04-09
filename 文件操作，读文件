@@ -1,0 +1,24 @@
+//打开一个文件
+#include<stdio.h>
+#include<string.h>
+#include<errno.h>
+int main()
+{
+	//打开文件text.txt
+	//相对地址text.txt
+	FILE* pfRead = fopen("text.txt", "r");
+	if (pfRead == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return 0;
+	}
+	//打开成功
+	//开始读文件
+	printf("%c", fgetc(pfRead));
+	printf("%c", fgetc(pfRead));
+	printf("%c", fgetc(pfRead));
+	//关闭文件
+	fclose(pfRead);
+	pfRead = NULL;
+	return 0;
+}
