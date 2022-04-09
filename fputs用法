@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	
+	FILE* pf = fopen("text.txt", "w");
+	if (pf == NULL)
+	{
+		return 0;
+	}
+	//写文件
+	fputs("hello", pf);//第一个参数字符串，第二个参数要写的地址
+	fputs("word", pf); 
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
