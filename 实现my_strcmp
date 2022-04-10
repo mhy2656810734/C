@@ -7,7 +7,7 @@ int my_strcmp(const char* str1, const char* str2)
 	{
 		if (*str1 == '\0')
 		{
-			return 1;//相等
+			return 0;//相等
 		}
 		str1++;
 		str2++;
