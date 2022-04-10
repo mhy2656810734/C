@@ -11,6 +11,7 @@ int main()
 	fseek(pf, -2, SEEK_END);//SEEK_CUR 文件当前位置    SEEK_END 文件末尾   SEEK_SET 文件起始位置
 	int ch = fgetc(pf);
 	printf("%c\n", ch);
+	//返回文件指针相对于起始位置的偏移量
 	int pos = ftell(pf);
 	printf("%d\n", pos);
 	fclose(pf);
