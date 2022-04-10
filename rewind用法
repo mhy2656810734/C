@@ -1,0 +1,20 @@
+#include<stdio.h>
+int main()
+{
+
+	FILE* pf = fopen("text3.txt", "r");
+	if (pf == NULL)
+	{
+		/*perror("open file text3.txt");*/
+		return 0;
+	}
+	//写文件
+	int ch = fgetc(pf);
+	printf("%c\n", ch);
+	//让文件指针的位置回到起始位置
+	rewind(pf);
+	printf("%c\n", ch);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
