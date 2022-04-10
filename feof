@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	//EOF    end of file  文件结束标志
+	FILE* pf = fopen("text.txt", "r");
+	if (pf == NULL)
+	{
+		perror("open file text,txt");
+		return 0;
+	}
+	int ch = fgetc(pf);   // 字符串用fgets判断是否为空指针  字符用fgetc判断是否为-1
+	printf("%d\n", ch);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
