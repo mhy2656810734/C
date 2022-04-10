@@ -1,0 +1,58 @@
+//1.计数器的方法
+//#include<stdio.h>
+//int my_strlen(char* str)
+//{
+//	int count = 0;
+//	while (*str != '\0')
+//	{
+//		count++;
+//		str++;
+//	}
+//	return count;
+//}
+//int main()
+//{
+//	char arr[] = "abcdef";
+//	int ret = my_strlen(arr);
+//	printf("%d\n", ret);
+//	return 0;
+//}
+
+//2.递归的方法
+//#include<stdio.h>
+//int my_strlen(char* str)
+//{
+//	
+//	if (*str != '\0')
+//	{
+//		return 1 + my_strlen(str + 1);
+//	}
+//	return 0;
+//}
+//int main()
+//{
+//	char arr[] = "abcdef";
+//	int ret = my_strlen(arr);
+//	printf("%d\n", ret);
+//	return 0;
+//}
+
+//3.指针-指针的方法
+#include<stdio.h>
+int my_strlen(char* str)
+{
+	char* start = str;
+	char* end = str;
+	while (*end != '\0')
+	{
+		end++;
+	}
+	return end - start;
+}
+int main()
+{
+	char arr[] = "abcdef";
+	int ret = my_strlen(arr);
+	printf("%d\n", ret);
+	return 0;
+}
