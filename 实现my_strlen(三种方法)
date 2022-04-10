@@ -20,7 +20,7 @@
 
 //2.递归的方法
 //#include<stdio.h>
-//int my_strlen(char* str)
+//int my_strlen(const char* str)
 //{
 //	
 //	if (*str != '\0')
@@ -39,7 +39,7 @@
 
 //3.指针-指针的方法
 #include<stdio.h>
-int my_strlen(char* str)
+int my_strlen(const char* str)
 {
 	char* start = str;
 	char* end = str;
