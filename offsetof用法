@@ -1,0 +1,18 @@
+
+//offsetof   返回的是成员变量的偏移量   头文件是  stddef.h
+#include<stdio.h>
+#include<stddef.h>
+struct S
+{
+	char i;
+	int a;
+	double b;
+};
+int main()
+{
+		
+	printf("%d ", offsetof(struct S, i));
+	printf("%d ", offsetof(struct S, a));
+	printf("%d ", offsetof(struct S, b));
+	return 0;
+}
