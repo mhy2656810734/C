@@ -1,0 +1,14 @@
+//位段可以节省空间
+#include<stdio.h>
+struct S
+{
+	int a : 2;
+	int b : 5;
+	int c : 10;
+	int d : 30;
+};
+int main()
+{
+	printf("%d\n", sizeof(struct S));
+	return 0;
+}
