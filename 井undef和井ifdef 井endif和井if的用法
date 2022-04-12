@@ -15,12 +15,15 @@ int main()
 //#ifdef MAX
 //	printf("%d\n", MAX);
 //#endif
-#if 1==2
-	printf("哈哈\n");
-#elif 2==3
-	printf("hehe\n");
-#else 
-	printf("嘿嘿\n");
+//#if 1==2
+//	printf("哈哈\n");
+//#elif 2==3
+//	printf("hehe\n");
+//#else 
+//	printf("嘿嘿\n");
+//#endif
+#ifndef DEG
+	printf("%d\n", MAX);
 #endif
 	return 0;
 }
