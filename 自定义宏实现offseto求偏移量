@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stddef.h>
+#define OFFSETOF(struct_name,number_name) (int)(&(((struct_name* )0)->number_name))
+struct S
+{
+	char i;
+	int a;
+	char b;
+};
+int main()
+{
+	//printf("%d\n", offsetof(struct S, i));//0
+	//printf("%d\n", offsetof(struct S, a));//4
+	//printf("%d\n", offsetof(struct S, b));//8
+	printf("%d\n", OFFSETOF(struct S, i));//0
+	printf("%d\n", OFFSETOF(struct S, a));//4
+	printf("%d\n", OFFSETOF(struct S, b));//8
+
+	return 0;
+}
