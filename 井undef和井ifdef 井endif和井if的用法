@@ -1,0 +1,26 @@
+//#if 后面加判断条件，如果为真就执行语句  为假不执行
+//#ifdef 如果后面的语句被定义过了就执行语句，不满足不执行
+//#undef 用于移除一个宏定义
+#include<stdio.h>
+#define MAX 100
+int main()
+{
+//	printf("%d\n",MAX);
+//#undef MAX
+//	printf("%d\n", MAX);
+//	int a = 2;
+//#if 2==1
+//	printf("%d\n", a);
+//#endif
+//#ifdef MAX
+//	printf("%d\n", MAX);
+//#endif
+#if 1==2
+	printf("哈哈\n");
+#elif 2==3
+	printf("hehe\n");
+#else 
+	printf("嘿嘿\n");
+#endif
+	return 0;
+}
