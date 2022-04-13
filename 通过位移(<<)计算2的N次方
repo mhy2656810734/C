@@ -1,0 +1,21 @@
+#include <stdio.h>
+int main()
+{
+    int n = 1;
+    int a ;
+    scanf("%d", &a);
+    if (a == 0)
+    {
+        printf("%d\n", n);
+    }
+    else
+    {
+        while (a )
+        {
+            n <<= 1;
+            a--;
+        }
+        printf("%d\n",  n);
+    }
+    return 0;
+}
