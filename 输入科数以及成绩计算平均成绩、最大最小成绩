@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main()
+{
+	int n;
+	scanf("%d", &n);
+	int m = n;
+	float sum = 0.0, avg = 0.0, max = -1.0, min = 101.0, x;
+	while (n--)
+	{
+		scanf("%f", &x);
+		if (x > max)
+			max = x;
+		if (x < min)
+		{
+			min = x;
+		}
+		sum += x;
+	}
+	avg = sum / m;
+	printf("%.2f %.2f %.2f\n", max, min, avg);
+	return 0;
+}
