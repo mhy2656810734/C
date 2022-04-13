@@ -1,0 +1,35 @@
+//要求：给定一个数组arr，和一个值k，你需要原地移除所有数值等于k的的元素
+//并返回移除后数组的新长度,不要使用额外的数组空间，你必须仅使用O(1)额外空间
+//并原地修改输入数组    
+//元素的顺序可以改变，你不需要考虑数组中超出新长度后面的元素
+#include<stdio.h>
+int Delete(int arr[], int sz, int k)
+{
+	//定义两个初始化指针，当start指向的元素不等于k时，将start指向的元素
+	// 赋值给start++、dest++
+	//当等于k时，start++，找到start指向的元素不等于k时，再赋值给dest
+	//这样最后返回的dest就是数组总长度
+	int start = 0;
+	int dest = 0;
+	while (start < sz)
+	{
+		if (arr[start] != k)
+		{
+			arr[dest++] = arr[start++];
+		}
+		else
+		{
+			start++;
+		}
+	}
+	return dest;
+}
+int main()
+{
+	int arr[] = { 0,1,2,2,3,0,4,2 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int k = 2;
+	int ret=Delete(arr,sz, k);
+	printf("新数组的长度是:%d\n", ret);
+	return 0;
+}
