@@ -1,0 +1,27 @@
+//题目：数组arr包含从0到n的所有整数，但其中缺了一个，请编写代码找出那个缺失的整数
+//你有办法在O(n)时间内完成吗？
+#include<stdio.h>
+int Search(int arr[],int sz)
+{
+	int i = 0;
+	int x = 0;
+	//将数组中的所有元素异或
+	for (i = 0; i < sz; i++)
+	{
+		x ^= arr[i];
+	}
+	//将上述结果与比arr多一个元素的数组arr进行异或所得数就是缺的数
+	for (i = 0; i <= sz; i++)
+	{
+		x^= i;
+	}
+	return x;
+}
+int main()
+{
+	int arr[]={ 3, 0, 1 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int ret = Search(arr,sz);
+	printf("%d\n", ret);
+	return 0;
+}
