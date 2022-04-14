@@ -1,0 +1,28 @@
+#include<stdio.h>
+void Path(int a, int b)
+{
+    int count = 0;
+    while (a <= b)  
+    {
+        int sum = 0;
+        int x = a;
+        while(x)
+        {
+            sum += x % 10;
+            x = x / 10;
+        }   
+        if (sum % 5 == 0)
+        {
+            count++;
+        }
+        a++;
+    }
+    printf("%d ", count);
+}
+int main()
+{
+    int a, b;
+    scanf("%d %d", &a, &b);
+    Path(a, b);
+    return 0;
+}
