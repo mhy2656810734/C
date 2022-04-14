@@ -1,0 +1,36 @@
+#include<stdio.h>
+void Sum(int a, int b)
+{
+    int count = 0;
+    while (a <= b)
+    {
+       //将每次a变化后的值赋给x，确保每个数字都进行判断而且不改变a的值
+        int x = a;
+        while (x)
+        {
+            if (x < 10&&x==2)
+            {
+                count++;
+            }
+            else if (x > 10)
+            {
+                int a = 0;
+                a=x %10;
+                if (a== 2)
+                {
+                    count++;
+                }
+            }
+            x /= 10;
+        }
+        a++;
+    }
+    printf("%d", count);
+}
+int main()
+{
+    int a, b;
+    scanf("%d %d", &a, &b);
+    Sum(a, b);
+    return 0;
+}
