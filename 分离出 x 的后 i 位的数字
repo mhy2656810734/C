@@ -1,0 +1,28 @@
+//实现思路：通过%10得到每一个位置的数字，在通过*10相加就可得需要分离出的数字
+#include<stdio.h>
+#include<math.h>
+void Digit(int n, int i)
+{
+    int sum = 0, j = 0;//j作为10的阶乘的数字
+    while (n > 0)
+    {
+        //分离每一位同时阶乘10，再求和
+        if (i > 0)
+        {
+            int a = 0;
+            a = n % 10;
+            sum += a * pow(10, j);
+            j++;
+            i--;
+        }
+        n /= 10;
+    }
+    printf("%d", sum);
+}
+int main()
+{
+    int n, i;
+    scanf("%d %d", &n, &i);
+    Digit(n, i);
+    return 0;
+}
