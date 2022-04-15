@@ -1,0 +1,277 @@
+//头文件
+#pragma once
+#include<stdio.h>
+#include<stdlib.h>
+typedef int SLTDataType;
+
+//链表
+struct SListNode
+{    
+	SLTDataType data;//数据域
+	struct SListNode* next;//指针域
+};
+typedef struct SListNode SLTNode;
+//打印功能   不会改变链表的头指针，传一级指针
+void SListPrint(SLTNode* phead);
+//尾插  头插  尾删  头删  随机插入    随机删除  会改变链表的头指针，传二级指针
+void SListPushBack(SLTNode** pphead, SLTDataType x);
+void SListPushFront(SLTNode** pphead, SLTDataType x);
+void SListPopBack(SLTNode** pphead);
+void SListPopFront(SLTNode** pphead);
+SLTNode* SListFind(SLTNode** pphead, SLTDataType x);
+//在pos的前面插入x
+void SListInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x);
+//删除pos位置的值
+void SListErase(SLTNode** pphead, SLTNode* pos);
+
+//源文件
+#include"SList.h"
+//打印
+void SListPrint(SLTNode* phead)
+{
+	SLTNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+
+//创建新结点
+SLTNode* BuySListNode(SLTDataType x)
+{
+	SLTNode* newnode = (SLTNode*)malloc(sizeof(SLTNode));
+	newnode->data = x;
+	newnode->next = NULL;
+	return newnode;
+}
+//尾插
+void SListPushBack(SLTNode* *pphead, SLTDataType x)
+{
+	SLTNode* newnode = BuySListNode(x);
+	if (*pphead == NULL)
+	{
+		*pphead = newnode;
+	}
+	//找尾指针
+	else
+	{
+		SLTNode* tail = *pphead;
+		while (tail->next != NULL)
+		{
+			tail = tail->next;
+		}
+		//尾结点，链接新结点
+		tail->next = newnode;
+	}
+}
+
+//头插
+void SListPushFront(SLTNode** pphead, SLTDataType x)
+{
+	SLTNode* newnode = BuySListNode(x);
+	newnode->next = *pphead;
+	*pphead = newnode;
+}
+
+//尾删
+void SListPopBack(SLTNode** pphead)
+{
+	//1.如果为空  2.如果只有一个结点  3.正常
+	if (*pphead == NULL)
+	{
+		perror("");
+		return;
+	}
+	else if((*pphead)->next==NULL)
+	{
+		free(*pphead);
+		*pphead = NULL;
+	}
+	else
+	{
+		SLTNode* pre = NULL;
+		SLTNode* tail = *pphead;
+		while (tail->next != NULL)
+		{
+			pre = tail;
+			tail = tail->next;
+		}
+		free(tail);
+		pre->next = NULL;
+	}
+}
+
+//头删
+void SListPopFront(SLTNode** pphead)
+{
+	//1.空   2.正常
+	if (*pphead == NULL)
+	{
+		perror("");
+		return;
+	}
+	else
+	{
+		SLTNode* str = (*pphead)->next;
+		(*pphead)->next = str;
+		free(*pphead);
+		*pphead = str;
+	}
+}
+
+//查找数据
+SLTNode* SListFind(SLTNode** pphead, SLTDataType x)
+{
+	SLTNode* cur = *pphead;
+	while (cur != NULL)
+	{
+		if (cur->data == x)
+		{
+			return cur;
+		}
+		cur = cur->next;
+	}
+	return NULL;
+}
+
+//随机插入
+void SListInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x)
+{
+	if (pos == *pphead)
+	{
+		SListPushFront(pphead, x);
+	}
+	else
+	{
+		SLTNode* newnode = BuySListNode(x);
+		newnode->next = pos;
+		SLTNode* pre = *pphead;
+		while (pre->next != pos)
+		{
+			pre = pre->next;
+		}
+		pre->next = newnode;
+	}
+}
+
+//随机删除
+void SListErase(SLTNode** pphead, SLTNode* pos)
+{
+	if (pos == *pphead)
+	{
+		SListPopFront(pphead);
+	}
+	{
+		SLTNode* pre = *pphead;
+		while (pre->next != pos)
+		{
+			pre = pre->next;
+		}
+		pre->next = pos->next;
+		free(pos);
+		pos = NULL;
+	}
+}
+
+//源文件
+#include"SList.h"
+void menu()
+{
+	printf("*************************************\n");
+	printf("**1.尾插数据             2.头插数据 \n");
+	printf("**3.删除尾数据           4.删除首数据\n");
+	printf("**5.随机插入数据         6.随机删除数据\n");
+	printf("**7.打印数据              0.退出程序**\n");
+	printf("*************************************\n");
+	printf("请输入你的选择:>\n");
+}
+void Text()
+{
+	int input = 0;
+	SLTDataType x = 0;
+	SLTNode* plist = NULL;
+	do
+	{
+		menu();
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			printf("请输入你想插入的数据,以-1结束\n");
+			do
+			{
+				scanf("%d", &x);
+				if (x != -1)
+				{
+					SListPushBack(&plist, x);
+				}
+			} while (x != -1);
+			break;
+		case 2:
+			printf("请输入你想插入的数据,以-1结束\n");
+			do
+			{
+				scanf("%d", &x);
+				if (x != -1)
+				{
+					SListPushFront(&plist, x);
+				}
+			} while (x != -1);
+			break;
+		case 3:
+			SListPopBack(&plist);
+			printf("删除成功!\n");
+			break;
+		case 4:
+			SListPopFront(&plist);
+			printf("删除成功!\n");
+			break;
+		case 5:
+			printf("请先输入你要插入的位置的当前数据：\n");
+			scanf("%d", &x);
+			SLTNode* pos = SListFind(&plist, x);
+			if (pos == NULL)
+			{
+				printf("该数据不存在，请重新选择随机插入选项进行操作!\n");
+			}
+			else
+			{
+				printf("该数据存在，请输入您要插入的数据:\n");
+				scanf("%d", &x);
+				SListInsert(&plist, pos, x);
+				printf("插入成功!\n");
+			}
+			break;
+		case 6:
+			printf("请先输入你要删除的位置的当前数据：\n");
+			scanf("%d", &x);
+			SLTNode* pos1 = SListFind(&plist, x);
+			if (pos1 == NULL)
+			{
+				printf("该数据不存在，请重新选择随机删除选项进行操作!\n");
+			}
+			else
+			{
+				SListErase(&plist, pos1);
+				printf("删除成功!\n");
+			}
+			break;
+		case 7:
+			SListPrint(plist);
+			break;
+		case 0:
+			printf("退出程序!\n");
+			break;
+		default:
+			printf("输入的数字有误，请重新选择\n");
+			break;
+		}
+	} while (input);
+}
+int main()
+{
+	Text();
+	return 0;
+}
