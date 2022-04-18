@@ -1,0 +1,44 @@
+#include<stdio.h>
+int main()
+{
+    int n = 0;
+    while (scanf("%d", &n) != EOF)
+    {
+        int i = 0;
+        for (i = 0; i < n - 1; i++)
+        {
+            int j = 0;
+            for (j = 0; j < n - 1; j++)
+            {
+            //打印前两行的*
+                if ((j<=i)&&i<2)
+                {
+                    printf("* ");
+                }
+                //打印i>1以后每一行的第一个*
+                else if ((i > 1) && (j == 0))
+                {
+                    printf("* ");
+                }
+            }
+            //打印从第三行开始的空格和*
+            if ((i > 1) && (i < n - 1))
+            {
+                int m = i;
+                while (m > 1)
+                {
+                    printf("  ");
+                    m--;
+                }
+                printf("* ");
+            }
+            printf("\n");
+        }
+        while (n)
+        {
+            printf("* ");
+            n--;
+        }
+        printf("\n");
+    }
+}
