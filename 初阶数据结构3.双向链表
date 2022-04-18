@@ -1,0 +1,329 @@
+//头文件
+#pragma once
+#include<stdio.h>
+#include<stdlib.h>
+#include<assert.h>
+
+typedef int LTDataType;
+typedef struct ListNode
+{
+	struct ListNode* prev;
+	struct ListNode* next;
+	LTDataType data;
+}ListNode;
+
+//初始化双向链表
+ListNode* ListInit();
+//打印双向链表
+void ListPrint(ListNode* phead);
+//销毁双向链表
+void ListDestory(ListNode* phead);
+//尾插法
+void ListPushBack(ListNode* phead, LTDataType x);
+//头插法
+void ListPushFront(ListNode* phead, LTDataType x); 
+//尾删
+void ListPopBack(ListNode* phead);
+//头删
+void ListPopFront(ListNode* phead);
+//查找数据
+ListNode*ListFind(ListNode* phead, LTDataType x);
+//随机插入数据
+void ListInsert(ListNode* pos, LTDataType x);
+//随机删除数据
+void ListErase(ListNode* pos);
+//计算双向链表中的数据个数
+int ListSize(ListNode* phead);
+
+//源文件List.c
+#include"List.h"
+
+//创建新结点
+ListNode* BuyListNode(LTDataType x)
+{
+	ListNode* newnode = (ListNode*)malloc(sizeof(ListNode));
+	if (newnode == NULL)
+	{
+		perror("");
+		return;
+	}
+	else
+	{
+		newnode->data = x;
+		newnode->next = NULL;
+		newnode->prev = NULL;
+		return newnode;
+	}
+}
+
+//初始化双向链表
+ListNode* ListInit()
+{
+	ListNode* phead = BuyListNode(0);
+	phead->next = phead;
+	phead->prev = phead;
+	return phead;
+}
+
+//打印双向链表
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead->next;
+	while (cur != phead)
+	{
+		printf("%d ", cur->data);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+
+//尾插法
+void ListPushBack(ListNode* phead,LTDataType x)
+{
+	//头结点phead的前驱结点就是尾结点
+	assert(phead);
+	ListNode* tail = phead->prev;
+	ListNode*newnode= BuyListNode(x);
+	newnode->prev = tail;
+	tail->next = newnode;
+	phead->prev = newnode;
+	newnode->next = phead;
+	/*ListInsert(phead, x);*/
+}
+
+//头插法
+void ListPushFront(ListNode* phead, LTDataType x)
+{
+	assert(phead);
+	ListNode* First = phead->next;
+	ListNode*newnode= BuyListNode(x);
+	phead->next = newnode;
+	newnode->prev = phead;
+	newnode->next = First;
+	First->prev = newnode;
+	/*ListInsert(phead->next, x);*/
+
+}
+
+//尾删
+void ListPopBack(ListNode* phead)
+{
+	assert(phead);
+	assert(phead->next != phead);
+	ListNode* tail = phead->prev;
+	ListNode* prev = tail->prev;
+	prev->next = phead;
+	phead->prev = prev;
+	free(tail);
+	tail = NULL;
+	/*ListErase(phead->prev);*/
+}
+
+//头删
+void ListPopFront(ListNode* phead)
+{
+	assert(phead);
+	assert(phead->next != phead);
+	ListNode* First = phead->next;
+	ListNode* Second = First->next;
+	phead->next = Second;
+	Second->prev = phead;
+	free(First);
+	First = NULL;
+	//ListErase(phead->next);
+}
+
+//查找数据
+ListNode* ListFind(ListNode* phead, LTDataType x)
+{
+	assert(phead);
+	ListNode* cur = phead->next;
+	while (cur != phead)
+	{
+		if (cur->data == x)
+		{
+			return cur;
+		}
+		cur = cur->next;
+
+	}
+	return NULL;
+}
+
+//随机插入数据   在pos的前面插入数据
+void ListInsert(ListNode* pos, LTDataType x)
+{
+	assert(pos);
+	ListNode* newnode = BuyListNode(x);
+	ListNode* prev = pos->prev;
+	prev->next = newnode;
+	newnode->prev = prev;
+	newnode->next = pos;
+	pos->prev = newnode;
+}
+
+//随机删除数据    删除pos位置的数据
+void ListErase(ListNode* pos)
+{
+	assert(pos);
+	ListNode* prev = pos->prev;
+	ListNode* next = pos->next;
+	prev->next = next;
+	next->prev = prev;
+	free(pos);
+	pos = NULL;
+}
+
+//计算双向链表中的元素个数
+int ListSize(ListNode* phead)
+{
+	assert(phead);
+	ListNode* cur = phead->next;
+	int count = 0;
+	while (cur != phead)
+	{
+		count++;
+		cur = cur->next;
+	}
+	return count;
+}
+
+//销毁双向链表
+void ListDestory(ListNode* phead)
+{
+	assert(phead);
+	ListNode* cur = phead->next;
+	while (cur != phead)
+	{
+		ListNode* next = cur->next;
+		free(cur);
+		cur = NULL;
+		cur = next;
+	}
+	free(phead);
+	phead = NULL;
+}
+
+//源文件text.c
+#include"List.h"
+void menu()
+{
+	printf("*******************************************\n");
+	printf("**1.尾插数据   2.头插数据\n");
+	printf("**3.尾删数据   4.头删数据\n");
+	printf("**5.随机插入   6.随机删除\n");
+	printf("**7.修改数据   8.求结点个数\n");
+	printf("**9.打印链表   0.退出程序\n");
+	printf("*******************************************\n");
+}
+void text()
+{
+	ListNode* plist = ListInit();
+	int input = 0;
+	int i = 0;
+	LTDataType x = 0;
+	do
+	{
+		menu();
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			printf("请输入你想插入的数据,以-1结束\n");
+			do
+			{
+				scanf("%d", &x);
+				if (x != -1)
+				{
+					ListPushBack(plist, x);
+				}
+			} while (x != -1);
+			printf("插入成功\n");
+			break;
+		case 2:
+			printf("请输入你想插入的数据,以-1结束\n");
+			do
+			{
+				scanf("%d", &x);
+				if (x != -1)
+				{
+					ListPushFront(plist, x);
+				}
+			} while (x != -1);
+			printf("插入成功\n");
+			break;
+		case 3:
+			ListPopBack(plist);
+			printf("删除成功!\n");
+			break;
+		case 4:
+			ListPopFront(plist);
+			printf("删除成功!\n");
+			break;
+		case 5:
+			printf("请先输入你要插入的位置的当前数据：\n");
+			scanf("%d", &x);
+			ListNode* pos = ListFind(plist, x);
+			if (pos == NULL)
+			{
+				printf("该数据不存在，请重新选择随机插入选项进行操作!\n");
+			}
+			else
+			{
+				printf("该数据存在，请输入您要插入的数据:\n");
+				scanf("%d", &x);
+				ListInsert(pos, x);
+				printf("插入成功!\n");
+			}
+			break;
+		case 6:
+			printf("请先输入你要删除的位置的当前数据：\n");
+			scanf("%d", &x);
+			ListNode* pos1 = ListFind(plist, x);
+			if (pos1 == NULL)
+			{
+				printf("该数据不存在，请重新选择随机删除选项进行操作!\n");
+			}
+			else
+			{
+				ListErase(pos1);
+				printf("删除成功!\n");
+			}
+			break;
+		case 7:
+			printf("请输入你想要修改的数据:\n");
+			scanf("%d", &x);
+			ListNode * pos2 = ListFind(plist, x);
+			if (pos2 == NULL)
+			{
+				printf("该数据不存在，请重新进行操作!\n");
+			}
+			else
+			{
+				printf("该数据存在，请输入数据进行修改:\n");
+				scanf("%d", &x);
+				pos2->data = x;
+				printf("修改成功!\n");
+			}
+			break;
+		case 8:
+			 i=ListSize(plist);
+			 printf("结点个数为%d个\n", i);
+			break;
+		case 9:
+			ListPrint(plist);
+			break;
+		case 0:
+			printf("退出程序!\n");
+			break;
+		default:
+			printf("输入的数字有误，请重新选择\n");
+			break;
+		}
+	} while (input);
+}
+int main()
+{
+	text();
+	return 0;
+}
