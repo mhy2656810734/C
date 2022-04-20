@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    int m = 0;
+    int n = 0;
+    int b = 0;//记录是否有无水仙花数
+    while (scanf("%d %d", &m, &n) != EOF)
+    {
+        int i = m;
+        for (i = m; i <= n; i++)
+        {
+          
+            int a = i/100;
+            int c = (i % 100)/10;
+            int d = i%10;
+            int sum = 0;//计算一个数字的每位之和
+            sum = pow(a, 3) + pow(c, 3) + pow(d,3);
+            if (i == sum)
+            {
+                printf("%d ", sum);
+                b++;
+            }
+
+        }
+    }
+    if (b == 0)
+    {
+        printf("no\n");
+    }
+    return 0;
+}
