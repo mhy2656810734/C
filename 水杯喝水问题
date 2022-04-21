@@ -1,19 +1,22 @@
+//牛牛口渴了，要喝10升水才能解渴，
+//但现在只有一个深 h 厘米，底面半径是 r 厘米的水杯，牛牛最少要喝多少杯水才能解渴。
+
 #include<stdio.h>
 int main()
 {
-    int n=0;
-    int m=0;
-    float V=0.0;//体积
-    int ret=0;//水的杯数
-    int S=10000;//总共的水的体积
-    scanf("%d %d",&n,&m);
-    V=3.14*n*m*m;
+    int n = 0;//杯子高度
+    int m = 0;//杯子底面半径
+    float V = 0.0;//体积
+    int ret = 0;//水的杯数
+    int S = 10000;//总共的水的体积
+    scanf("%d %d", &n, &m);
+    V = 3.14 * n * m * m;
     //当不能整除时，小于V的剩余水的体积也需要一杯水
-    while(S-V>-V)
+    while (S - V > -V)
     {
         ret++;
-        S-=V;
+        S -= V;
     }
-    printf("%d ",ret);
+    printf("%d ", ret);
     return 0;
 }
