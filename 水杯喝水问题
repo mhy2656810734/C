@@ -1,0 +1,19 @@
+#include<stdio.h>
+int main()
+{
+    int n=0;
+    int m=0;
+    float V=0.0;//体积
+    int ret=0;//水的杯数
+    int S=10000;//总共的水的体积
+    scanf("%d %d",&n,&m);
+    V=3.14*n*m*m;
+    //当不能整除时，小于V的剩余水的体积也需要一杯水
+    while(S-V>-V)
+    {
+        ret++;
+        S-=V;
+    }
+    printf("%d ",ret);
+    return 0;
+}
