@@ -1,0 +1,222 @@
+#pragma once
+#include<stdio.h>
+#include<stdbool.h>
+#include<stdlib.h>
+#include<assert.h>
+
+//typedef 重新点类型名
+typedef int STDatatype;
+//栈类型
+typedef struct Stack
+{
+	//数据  top标记栈顶  容量
+	STDatatype* data;
+	int top;
+	int capacity;
+}ST;
+
+//初始化栈   销毁
+void StackInit(ST* ps);
+void StackDistory(ST* ps);
+
+//入栈
+void StackPush(ST* ps, STDatatype x);
+//出栈
+void StackPop(ST* ps);
+//取栈顶元素
+STDatatype* StackTop(ST* ps);
+//计算栈的数据个数
+int StackSize(ST* ps);
+//判断栈是否为空
+bool StackEmpty(ST* ps);
+
+
+//头文件
+
+#pragma once
+#include<stdio.h>
+#include<stdbool.h>
+#include<stdlib.h>
+#include<assert.h>
+
+//typedef 重新点类型名
+typedef int STDatatype;
+//栈类型
+typedef struct Stack
+{
+	//数据  top标记栈顶  容量
+	STDatatype* data;
+	int top;
+	int capacity;
+}ST;
+
+//初始化栈   销毁
+void StackInit(ST* ps);
+void StackDistory(ST* ps);
+
+//入栈
+void StackPush(ST* ps, STDatatype x);
+//出栈
+void StackPop(ST* ps);
+//取栈顶元素
+STDatatype* StackTop(ST* ps);
+//计算栈的数据个数
+int StackSize(ST* ps);
+//判断栈是否为空
+bool StackEmpty(ST* ps);
+
+//源文件Stack.c
+#include"Stack.h"
+
+//初始化栈 
+void StackInit(ST* ps)
+{
+	assert(ps);
+	ps->data = (STDatatype*)malloc(sizeof(STDatatype) * 4);//初始化开辟4个数据大小的动态内存空间
+	ps->capacity = 4;
+	ps->top = 0;
+	printf("初始化栈成功!\n");
+}
+
+// 销毁栈
+void StackDistory(ST* ps)
+{
+	assert(ps);
+	free(ps->data);
+	ps->data = NULL;
+	ps->top = ps->capacity = 0;
+	printf("销毁栈成功\n");
+}
+
+//入栈
+void StackPush(ST* ps, STDatatype x)
+{
+	assert(ps);
+	//判断是否满容
+	if (ps->capacity == ps->top)
+	{
+		//增容
+		STDatatype* pf = (STDatatype*)realloc(ps->data, sizeof(STDatatype) * 2 * ps->capacity);
+		if (pf == NULL)
+		{
+			perror("");
+			return;
+		}
+		else
+		{
+			ps->data = pf;
+			ps->capacity *= 2;
+		}
+	}
+	ps->data[ps->top] = x;
+	ps->top++;
+	printf("入栈操作成功\n");
+}
+
+//出栈
+void StackPop(ST* ps)
+{
+	assert(ps);
+	//栈空终止程序报错
+	assert(ps->top > 0);
+	ps->top--;
+}
+
+//取栈顶元素
+STDatatype* StackTop(ST* ps)
+{
+	assert(ps);
+	assert(ps->top > 0);
+	//top初始化为0，则它指向的是栈顶元素的下一个位置
+	return ps->data[ps->top-1];
+}
+//计算栈的数据个数
+int StackSize(ST* ps)
+{
+	assert(ps);
+	return ps->top;
+}
+//判断栈是否为空
+bool StackEmpty(ST* ps)
+{
+	assert(ps);
+	return ps->top == 0;
+}
+
+//源文件text.c
+#include"Stack.h"
+void menu()
+{
+	printf("************************************************\n");
+	printf("**1.初始化栈       2.入栈操作**\n");
+	printf("**3.出栈操作       4.输出栈内元素\n");
+	printf("**5.求栈顶元素     6.输出栈的长度\n");
+	printf("**7.判断栈空       8.销毁栈\n");
+	printf("**      0.退出程序\n");
+	printf("************************************************\n");
+}
+void text()
+{
+	ST st;
+	int input = 0;
+	STDatatype x = 0;
+	int ret = 0;//栈内元素的个数
+	do
+	{
+		menu();
+		printf("请输入你的选择:\n");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			StackInit(&st);
+			break;
+		case 2:
+			printf("请输入数据进行入栈操作\n");
+			scanf("%d", &x);
+			StackPush(&st, x);
+			break;
+		case 3:
+			printf("出栈操作成功：%d\n", StackTop(&st));
+			StackPop(&st);
+			break;
+		case 4:
+			while (!StackEmpty(&st))
+			{
+				printf("%d ", StackTop(&st));
+				StackPop(&st);
+			}
+			printf("\n栈已空\n");
+			break;
+		case 5:
+			printf("栈顶元素为%d\n", StackTop(&st));
+			break;
+		case 6:
+			ret = StackSize(&st);
+			printf("栈内共%d个元素\n",StackSize(&st));
+			break;
+		case 7:
+			if (StackEmpty)
+			{
+				printf("栈不空\n");
+			}
+			else
+				printf("栈为空\n");
+			break;
+		case 8:
+			StackDistory(&st);
+			break;
+		case 0:
+			printf("退出程序\n");
+			break;
+		default:
+			printf("输入错误，请重新输入\n");
+			break;
+		}
+	} while (input);
+}
+int main()
+{
+	text();
+	return 0;
+}
