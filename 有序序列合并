@@ -1,0 +1,47 @@
+#include<stdio.h>
+int main()
+{
+    int n=0;
+    int m=0;
+    int arr1[1000]={0};
+    int arr2[1000]={0};
+    int i=0;//数据arr1的下标
+    int j=0;//数组arr2的下标
+    scanf("%d %d",&n,&m);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&arr1[i]);
+    }
+    for(j=0;j<m;j++)
+    {
+        scanf("%d",&arr2[j]);
+    }
+    //合并有序序列并输出
+    i=0;
+    j=0;
+    while(i<n&&j<m)
+    {
+        if(arr1[i]<arr2[j])
+        {
+            printf("%d ",arr1[i]);
+            i++;
+        }
+        else
+        {
+            printf("%d ",arr2[j]);
+            j++;
+        }
+    }
+    //如果一个数组为空，另一个不为空
+    if(i==n&&j<m)
+    {
+        for(;j<m;j++)
+            printf("%d ",arr2[j]);
+    }
+    else
+    {
+        for(;i<n;i++)
+            printf("%d ",arr1[i]);
+    }
+    return 0;
+}
