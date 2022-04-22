@@ -1,0 +1,23 @@
+#include<stdio.h>
+int main()
+{
+    long int n=0;
+    long int m=0;
+    long int max=0;
+    long int min=0;
+    long long int sum=0;
+    scanf("%ld %ld",&n,&m);
+    long int a=n;
+    long int b=m;
+    while(max=n%m)
+    {
+        n=m;
+        m=max;
+    }
+    //此时最大公约数就是m
+    //最小公倍数等于两数乘积/最大公约数
+    min=a*b/m;
+    sum=m+min;
+    printf("%ld",sum);
+    return 0;
+}
