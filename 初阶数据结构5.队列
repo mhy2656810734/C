@@ -1,0 +1,213 @@
+//头文件
+#include<stdio.h>
+#include<stdlib.h>
+#include<assert.h>
+#include<stdbool.h>
+typedef int QDatatype;
+//队列结点
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDatatype data;
+}QNode;
+
+//创建队头和队尾结构体指针
+typedef struct Queue
+{
+	struct QueueNode* head;//队头指针
+	struct QueueNode* tail;//队尾指针
+}Queue;
+
+//初始化队列
+void QueueInit(Queue* pq);
+//销毁队列
+void QueueDestory(Queue* pq);
+//队尾插入数据
+void QueuePush(Queue* pq, QDatatype x);
+//队头出数据
+void QueuePop(Queue* pq);
+//取队头数据
+QDatatype QueueFront(Queue* pq);
+//取队尾数据
+QDatatype QueueBack(Queue* pq);
+//求队列数据个数
+int QueueSize(Queue* pq);
+//判断队列是否空
+bool QueueEmpty(Queue* pq);
+
+//源文件
+#include"Queue.h"
+//初始化队列
+void QueueInit(Queue* pq)
+{
+	assert(pq);
+	pq->head = pq->tail = NULL;
+}
+//销毁队列
+void QueueDestory(Queue* pq)
+{
+	assert(pq);
+	QNode* cur = pq->head;
+	while (cur)
+	{
+		QNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	pq->head = pq->tail = NULL;
+	
+}
+//队尾插入数据
+void QueuePush(Queue* pq, QDatatype x)
+{
+	//创建新结点保存数据插入队尾
+	assert(pq);
+	QNode* newnode = (QNode*)malloc(sizeof(QNode));
+	if (newnode == NULL)
+	{
+		perror("");
+		return;
+	}
+	newnode->data = x;
+	newnode->next = NULL;
+	//1.如果队列为空
+	if (pq->tail == NULL)
+	{
+		pq->head = pq->tail = newnode;
+	}
+	//如果不为空，直接插入到队尾后面
+	else
+	{
+
+		pq->tail->next = newnode;
+		pq->tail = newnode;//使得tail继续指向队尾元素
+	}
+}
+//队头出数据
+void QueuePop(Queue* pq)
+{
+	assert(pq);
+	assert(pq->head);
+	//注意队尾指针
+	if (pq->head ->next == NULL)//如果只有一个结点
+	{
+		free(pq->head);
+		pq->tail=pq->head = NULL;
+	}
+	else//多个结点
+	{
+		QNode* next = pq->head->next;
+		free(pq->head);
+		pq->head = next;
+	}
+
+}
+//取队头数据
+QDatatype QueueFront(Queue* pq)
+{
+	assert(pq);
+	assert(pq->head);
+	return pq->head->data;
+}
+//取队尾数据
+QDatatype QueueBack(Queue* pq)
+{
+	assert(pq);
+	assert(pq->head);
+	return pq->tail->data;
+}
+//求队列数据个数
+int QueueSize(Queue* pq)
+{
+	assert(pq);
+	int size = 0;
+	QNode* cur = pq->head;
+	while (cur)
+	{
+		size++;
+		cur = cur->next;
+	}
+	return size;
+}
+//判断队列是否空
+bool QueueEmpty(Queue* pq)
+{
+	assert(pq);
+	return pq->head == NULL;
+}
+
+//源文件
+#include"Queue.h"
+void menu()
+{
+	printf("*****************************************\n");
+	printf("**1.初始化队列    2.插入数据\n");
+	printf("**3.取出数据      4.取队头数据\n");
+	printf("**5.取队尾数据    6.求队列数据个数\n");
+	printf("**7.判断队列为不为空 \n");
+	printf("**8.销毁队列      0.退出程序\n");
+}
+void text()
+{
+	Queue q;
+	int input = 0;
+	int ret = 0;//计算队列数据个数
+	QDatatype x;
+	do
+	{
+		menu();
+		printf("请输入你的选择:\n");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			QueueInit(&q);
+			printf("初始化成功\n");
+			break;
+		case 2:
+			printf("请输入你要插入队列的数据:\n");
+			scanf("%d", &x);
+			printf("插入成功\n");
+			break;
+		case 3:
+			QueuePop(&q);
+			printf("操作成功\n");
+			break;
+		case 4:
+			printf("%d", QueueFront(&q));
+			break;
+		case 5:
+			printf("%d", QueueBack(&q));
+			break;
+		case 6:
+		    ret = QueueSize(&q);
+			printf("队列共%d个数据\n", ret);
+			break;
+		case 7:
+			if (QueueEmpty(&q))
+			{
+				printf("队列为空\n");
+			}
+			else
+			{
+				printf("队列不空\n");
+			}
+			break;
+		case 8:
+			QueueDestory(&q);
+			printf("销毁成功\n");
+			break;
+		case 0:
+			printf("退出程序\n");
+		default:
+			printf("输入错误，请重新输入\n");
+			break;
+		}
+
+	} while (input);
+}
+int main()
+{
+	text();
+	return 0;
+}
