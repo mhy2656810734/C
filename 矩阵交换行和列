@@ -1,0 +1,57 @@
+//接下来有k行，每行包括一个字符t和两个数a和b，中间用空格格分隔，t代表需要执行的操作，当t为字符'r'时代表进行行变换，当t为字符'c'时代表进行列变换，a和b为需要互换的行或列
+#include<stdio.h>
+int main()
+{
+    int n=0;
+    int m=0;
+    int k=0;
+    int arr[10][10];
+    scanf("%d %d",&n,&m);
+    int i=0;
+    int j=0;
+    char t;//输入的字符
+    int a;
+    int b;//要进行交换的行和列
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            scanf("%d ",&arr[i][j]);
+        }
+    }
+    scanf("%d",&k);
+  for (int i = 0; i < k; i++)
+    {
+        scanf(" %c %d %d", &t, &a, &b);
+        if (t == 'r')
+        {
+            //交换a和b行
+            for (int j = 0; j < m; j++)
+            {
+                int tmp = arr[a - 1][j];
+                arr[a - 1][j] = arr[b - 1][j];
+                arr[b - 1][j] = tmp;
+            }
+        }
+        else if (t == 'c')
+        {
+            //交换a和b列
+            for (int j = 0; j < n; j++)
+            {
+                int tmp = arr[j][a - 1];
+                arr[j][a - 1] = arr[j][b - 1];
+                arr[j][b - 1] = tmp;
+            }
+        }
+    }
+ 
+       for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+           printf("%d ",arr[i][j]);
+        }
+           printf("\n");
+    }
+    return 0;
+}
