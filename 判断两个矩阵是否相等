@@ -1,8 +1,9 @@
+//一行，如果两个矩阵相等输出"Yes"并换行，否则输出"No"并换行。
 #include<stdio.h>
 int main()
 {
-    int n=0;
-    int m=0;
+    int n=0;//行
+    int m=0;//列
     int arr1[10][10];
     int arr2[10][10];
     scanf("%d %d",&n,&m);
