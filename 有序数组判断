@@ -1,0 +1,31 @@
+#include<stdio.h>
+int main()
+{
+    int n = 0;
+    int arr[50];
+    int i = 0;
+    int count = 0;//如果有序只有两种情况：从小到大和从大到小，先取第一个数据，然后跟后面的元素比
+                  //如果每比一个count+1  count最后的值只有为0或者n-1的时候就是有序的
+    scanf("%d", &n);
+    int m = n;//防止n被改变
+    while (m)
+    {
+        scanf("%d", &arr[i]);
+        i++;
+        m--;
+    }
+    int ret = arr[0];
+    for (i=1; i < n; i++)
+    {
+        if (arr[i] > ret)
+        {
+            count++;
+            ret = arr[i];
+        }
+    }
+    if (count == 0 || count == n - 1)
+        printf("sorted\n");
+    else
+        printf("unsorted\n");
+    return 0;
+}
