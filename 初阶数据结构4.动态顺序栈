@@ -24,7 +24,7 @@ void StackPush(ST* ps, STDatatype x);
 //出栈
 void StackPop(ST* ps);
 //取栈顶元素
-STDatatype* StackTop(ST* ps);
+STDatatype StackTop(ST* ps);
 //计算栈的数据个数
 int StackSize(ST* ps);
 //判断栈是否为空
@@ -123,7 +123,7 @@ void StackPop(ST* ps)
 }
 
 //取栈顶元素
-STDatatype* StackTop(ST* ps)
+STDatatype StackTop(ST* ps)
 {
 	assert(ps);
 	assert(ps->top > 0);
