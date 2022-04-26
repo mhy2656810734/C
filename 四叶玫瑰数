@@ -1,0 +1,26 @@
+//四叶玫瑰数：一个数的四个位置的数字的四次方加起来等于这个四位数本身的数。
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    int n=0;
+    int m=0;
+    scanf("%d %d",&n,&m);
+    int i=0;
+    for(i=n;i<=m;i++)
+    {
+        int j=i;//避免将i的值改变
+        int sum=0;//求每位4次方之和
+        while(j)
+        {
+            sum+=pow(j%10,4);
+            j/=10;
+        }
+        if(sum==i)
+        {
+            printf("%d ",i);
+        }
+            
+    }
+    return 0;
+}
