@@ -1,0 +1,26 @@
+//题目：将复合语句的首字母大写后再连接在一起 “I am Bob”简写为“IAB”
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char arr[1000];
+    gets(arr);//从标准输入设备（键盘）读取字符串直到换行符结束，但换行符会被丢弃，然后在末尾添加'0'字符。
+    int sz=strlen(arr);
+    int i=0;
+    //先拿到第一个字母
+    if(arr[0]>='A'&&arr[0]<='Z')
+        printf("%c",arr[0]);
+    else
+        printf("%c",arr[0]-32);
+    for(i=1;i<sz;i++)
+    {
+            if(arr[i]==' ')
+            {
+                if(arr[i+1]>='A'&&arr[i+1]<='Z')
+                    printf("%c",arr[i+1]);
+                else
+                    printf("%c",arr[i+1]-32);
+            }
+    }
+    return 0;
+}
