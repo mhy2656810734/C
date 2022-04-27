@@ -1,0 +1,154 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef char BTDatatype;
+typedef struct BinaryTreeNode
+{
+	struct BinaryTreeNode* left;
+	struct BinaryTreeNode* right;
+	BTDatatype data;
+}BTNode;
+#include"Queue.h"
+
+//前序遍历
+void Prevorder(BTNode* root)
+{
+	if (root == NULL)
+	{
+		printf("NULL ");
+		return;
+	}
+	printf("%c ", root->data);//根节点数据
+	Prevorder(root->left);//左子树
+	Prevorder(root->right);//右子树
+}
+
+
+//中序遍历
+void Inorder(BTNode* root)
+{
+	if (root == NULL)
+	{
+		printf("NULL ");
+		return;
+	}
+	Inorder(root->left);//左子树
+	printf("%c ", root->data);
+	Inorder(root->right);
+}
+
+//后序遍历
+void Postorder(BTNode* root)
+{
+	
+	if (root == NULL)
+	{
+		printf("NULL ");
+		return;
+	}
+	Postorder(root->left);//左子树
+	Postorder(root->right);//右子树
+	printf("%c ", root->data);//根
+}
+
+//层序遍历  用队列实现
+void levelOrder(BTNode* root)
+{
+	//核心思路：上一层出的时候带下一层
+	Queue q;
+	QueueInit(&q);
+	if (root)
+		QueuePush(&q, root);
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		printf("%c ", front->data);
+		if (front->left)
+		{
+			QueuePush(&q, front->left);
+		}
+		if (front->right)
+		{
+			QueuePush(&q, front->right);
+		}
+	}
+	printf("\n");
+	QueueDestory(&q);
+}
+//求二叉树结点个数
+int TreeSize(BTNode* root)
+{
+	return root == NULL ? 0 : TreeSize(root->left) + TreeSize(root->right)+1;
+}
+
+//求叶子结点个数
+int LeastTreeSize(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return 0;
+	}
+	else if (root->left == NULL && root->right == NULL)
+	{
+		return 1;
+	}
+	else
+	return LeastTreeSize(root->left) + LeastTreeSize(root->right);
+}
+
+//销毁
+void DestoryTree(BTNode* root) 
+{
+	if(root==NULL)
+	{
+		return;
+	}
+	DestoryTree(root->left);
+	DestoryTree(root->right);
+	free(root);
+	root=NULL;
+}
+
+//层序遍历
+
+int main()
+{
+	BTNode* A = (BTNode*)malloc(sizeof(BTNode));
+	A->data = 'A';
+	A->left = NULL;
+	A->right = NULL;
+	BTNode* B = (BTNode*)malloc(sizeof(BTNode));
+	B->data = 'B';
+	B->left = NULL;
+	B->right = NULL;
+	BTNode* C = (BTNode*)malloc(sizeof(BTNode));
+	C->data = 'C';
+	C->left = NULL;
+	C->right = NULL;
+	BTNode* D = (BTNode*)malloc(sizeof(BTNode));
+	D->data = 'D';
+	D->left = NULL;
+	D->right = NULL;
+	BTNode* E = (BTNode*)malloc(sizeof(BTNode));
+	E->data = 'E';
+	E->left = NULL;
+	E->right = NULL;
+	A->left = B;
+	A->right = C;
+	B->left = D;
+	B->right = E;
+	//printf("前序遍历\n");
+	//Prevorder(A);
+	//printf("\n");
+	//printf("中序遍历\n");
+	//Inorder(A);
+	//printf("\n");
+	//printf("后序遍历\n");
+	//Postorder(A);
+	//printf("\n");
+	/*printf("%d\n", TreeSize(A));
+	printf("%d", TreeSize(B));*/
+	/*printf("%d", LeastTreeSize(A));*/
+	levelOrder(A);
+	return;
+}
