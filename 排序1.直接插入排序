@@ -1,0 +1,37 @@
+#include<stdio.h>
+void InsertSort(int* arr, int sz)//按照升序排序
+{
+	int i = 0;
+	for (i = 0; i < sz - 1; i++)//最多是将n-1的数据插入前面
+	{
+		int end = i;
+		int tmp = arr[end + 1];//tem存放的是end后面第一个数据即需要插入到前面的数据
+		while (end >= 0)
+		{
+			//大于就将end的数据向后移动一位，小于就停止，说明此时end的位置已经为空，直接插入
+			if (arr[end] > tmp)
+			{
+				arr[end + 1] = arr[end];
+				end--;//继续让end前面的跟tmp中的数据比较
+			}
+			else
+			{
+				break;//说明此时tmp中的元素大于或者等于end的数据
+			}
+		}
+		//直接将tmp即原来end-1位置的数据放入此时end+1的位置即可实现插入
+		arr[end+1] = tmp;
+	}
+}
+int main()
+{
+	int arr[] = { 4,2,3,8,9,5,6,7,1,0 };
+	int sz = sizeof(arr) / sizeof(int);
+	InsertSort(arr, sz);
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
