@@ -1,0 +1,80 @@
+#include<stdio.h>
+//三数取中
+int GetMidIndex(int* arr, int left, int right)
+{
+	int mid = (left + right) >> 1;
+	if (arr[left] < arr[mid])
+	{
+		if (arr[mid] < arr[right])
+		{
+			return mid;
+		}
+		else if (arr[right] < arr[left])
+		{
+			return left;
+		}
+		else
+			return right;
+	}
+	else
+	{
+		if (arr[right] < arr[mid])
+		{
+			return mid;
+		}
+		else if (arr[left] < arr[right])
+		{
+			return left;
+		}
+		else
+			return right;
+	}
+
+}
+
+
+void Swap(int* p1, int* p2)
+{
+	int tmp = *p1;
+	*p1 = *p2;
+	*p2 = tmp;
+}
+
+
+void QuickSort(int* arr, int left, int right)
+{
+	if (left >= right)
+		return;
+	int mid = GetMidIndex(arr, left, right);
+	Swap(&arr[left], &arr[mid]);//避免队列有序
+	int cur = left+1;
+	int prev = left;
+	int key = left;
+	while (cur <= right)
+	{
+		//找比key小的
+		if ((arr[cur] < arr[key]) && (prev++ != cur))//后面避免自己与自己交换
+		{
+			Swap(&arr[cur], &arr[prev]);
+		}
+		cur++;//cur往后继续找
+	}
+	//交换perv与刚开始key的值
+	Swap(&arr[prev], &arr[key]);
+	QuickSort(arr, left, prev - 1);
+	QuickSort(arr, prev + 1, right);
+
+}
+
+int main()
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
+	int sz = sizeof(arr) / sizeof(int);
+	QuickSort(arr, 0, sz - 1);
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
