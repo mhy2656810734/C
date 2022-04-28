@@ -37,9 +37,17 @@ void AdjustUp(int* arr, int sz, int root)
 void HeapSort(int* arr, int sz)
 {
 	int i = 0;
+	//建堆
 	for (i = (sz - 1 - 1) / 2; i >= 0; i--)//从倒数第一个非叶子结点的子树开始调整成大堆
 	{                                       //i--就是让坐标每次减一，倒着向根调整
 		AdjustUp(arr, sz, i);
+	}
+	int end = sz - 1;//最后一个元素的下标
+	while (end > 0)//留下第一个元素
+	{
+		Swap(&arr[0], &arr[end]);//将第一个最大的元素和最后一个元素交换
+		AdjustUp(arr, end, 0);//从根节点开始调整
+		end--;//将最后一个元素不当做节点
 	}
 }
 
