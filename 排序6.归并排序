@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void _MergeSort(int* arr, int left, int right, int* tmp)
+{
+	if (left >= right)
+		return;
+	int mid = (left + right) >> 1;
+	_MergeSort(arr, left, mid, tmp);
+	_MergeSort(arr, mid + 1, right, tmp);
+	int begin1 = left;
+	int end1 = mid;
+	int begin2 = mid + 1;
+	int end2 = right;
+	int index = left;
+	//归并
+	while ((begin1 <= end1) && (begin2 <= end2))
+	{
+		if (arr[begin1] < arr[begin2])
+		{
+			tmp[index++] = arr[begin1++];
+		} 
+		{
+			tmp[index++] = arr[begin2++];
+		}
+	}
+	//如果有一个区间结束，另一个还有数据要继续加到后面
+	while (begin1 <= end1)
+	{
+		tmp[index++] = arr[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[index++] = arr[begin2++];
+	}
+	//拷贝回去
+	int i = 0;
+	for (i = left; i <= right; i++)
+	{
+		arr[i] = tmp[i];
+	}
+}
+
+
+//归并排序
+void MergeSort(int* arr, int sz)
+{
+	int* tmp = (int*)malloc(sizeof(int) * sz);
+	if (tmp == NULL)
+	{
+		perror("");
+		exit(-1);
+	}
+	else
+	{
+		_MergeSort(arr, 0, sz - 1, tmp);
+		free(tmp);
+		tmp == NULL;
+	}
+}
+int main()
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
+	int sz = sizeof(arr) / sizeof(int);
+	MergeSort(arr, sz);
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
