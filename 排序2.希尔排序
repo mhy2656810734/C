@@ -1,0 +1,42 @@
+#include<stdio.h>
+void ShellSort(int* arr, int sz)
+{
+	int grap = sz;
+	int i = 0;
+	while (grap > 1)//当间隔大于1的时候进行预排序，等于1就是直接排序，此时已经有序
+	{
+		grap = grap / 2;//间隔越来越小
+		int i = 0;
+		for(i=0;i<sz-grap;i++)//把间隔为grap的多组数据同时排
+		{
+			int end = i;//要排序的位置的前grap个位置的元素
+			int tmp = arr[end + grap];
+			while (end >= 0)
+			{
+				if (arr[end] > tmp)//当end位置的数据大于tmp时，再与end-间隔（grap)的数据进行比较
+				{
+					arr[end + grap] = arr[end];//将比tmp大的数据依次向后移动间隔grap
+					end -= grap;//每次让end减少间隔grap
+				}
+				else
+				{
+					break;
+				}
+			}
+			//此时end下标的数据小于tmp。所以将tmp放入到end+grap的下标处
+			arr[end + grap] = tmp;
+		}
+	}
+}
+int main()
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,1,0 };
+	int sz = sizeof(arr) / sizeof(int);
+	ShellSort(arr, sz);
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
