@@ -37,6 +37,13 @@ void HeapSort(int* arr, int sz)
 	{
 		AdjustDown(arr,sz, i);
 	}
+	int end = sz - 1;
+	while (end > 0)
+	{
+		Swap(&arr[0], &arr[end]);//将最小的数据和第一个数据交换
+		AdjustDown(arr, end, 0);
+		end--;
+	}
 }
 int main()
 {
