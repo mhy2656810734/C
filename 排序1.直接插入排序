@@ -5,7 +5,7 @@ void InsertSort(int* arr, int sz)//按照升序排序
 	for (i = 0; i < sz - 1; i++)//最多是将n-1的数据插入前面
 	{
 		int end = i;
-		int tmp = arr[end + 1];//tem存放的是end后面第一个数据即需要插入到前面的数据
+		int tmp = arr[end + 1];//tmp存放的是end后面第一个数据即需要插入到前面的数据
 		while (end >= 0)
 		{
 			//大于就将end的数据向后移动一位，小于就停止，说明此时end的位置已经为空，直接插入
