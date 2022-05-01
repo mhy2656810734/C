@@ -1,4 +1,10 @@
 //制作一个链表然后输出这个链表的值
+输入：
+4
+5 4 2 1
+复制
+输出：
+5 4 2 1
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct SListNode
