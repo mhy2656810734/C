@@ -1,0 +1,107 @@
+
+//把数组 a 和数组 b 转换成链表，然后把链表 a 中的值加到链表 b 中，然后输出加和后的链表。
+
+
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct SListNode
+{
+    int data;
+    struct SList* next;
+}SLNode;
+
+//创建新节点的
+SLNode* BuySListNode(int x)
+{
+    SLNode* newnode = (SLNode*)malloc(sizeof(SLNode));
+    if (newnode == NULL)
+    {
+        perror("");
+        exit(-1);
+    }
+    else
+    {
+        newnode->data = x;
+        newnode->next = NULL;
+        return newnode;
+    }
+}
+
+//尾插数据
+void SListPushBack(SLNode** pphead, int x)
+{
+    SLNode* newnode = BuySListNode(x);
+    if (newnode == NULL)
+    {
+        perror("");
+        exit(-1);
+    }
+    else
+    {
+        if (*pphead == NULL)
+        {
+            *pphead = newnode;
+        }
+        else
+        {
+            //找尾指针
+            SLNode* tail = *pphead;
+            while (tail->next != NULL)
+            {
+                tail = tail->next;
+            }
+            tail->next = newnode;
+        }
+    }
+}
+
+//打印数据
+void SListPrint(SLNode** pphead)
+{
+    SLNode* cur = *pphead;
+    while (cur != NULL)
+    {
+        printf("%d ", cur->data);
+        cur = cur->next;
+    }
+}
+
+//求两个链表的一个结点的和
+int Ready(SLNode** pphead, SLNode** phead)
+{
+    int ret = (*pphead)->data + (*phead)->data;
+    return ret;
+}
+int main()
+{
+    SLNode* sl = NULL;
+    SLNode* Sl = NULL;
+    SLNode* SL = NULL;
+    int n = 0;
+    scanf("%d", &n);
+    int y = n;
+    int z = n;
+    int x = 0;
+    do
+    {
+        scanf("%d", &x);
+        SListPushBack(&sl, x);
+        y--;
+    } while (y != 0);
+    do
+    {
+        scanf("%d", &x);
+        SListPushBack(&Sl, x);
+        n--;
+    } while (n != 0);
+    do
+    {
+        int ret = sl->data + Sl->data;
+        SListPushBack(&SL, ret);
+        sl = sl->next;
+        Sl = Sl->next;//为了读到后续结点
+        z--;
+    } while (z != 0);
+    SListPrint(&SL);
+    return 0;
+}
