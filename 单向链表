@@ -1,4 +1,4 @@
-
+//制作一个链表然后输出这个链表的值
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct SListNode
