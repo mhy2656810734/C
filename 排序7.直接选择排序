@@ -1,5 +1,6 @@
 #include<stdio.h>
-
+//每次找到最大的数和最小的数分别插入到数组左边和右边
+//交换函数
 void Swap(int* p1, int* p2)
 {
 	int tmp = *p1;
