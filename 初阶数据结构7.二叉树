@@ -17,9 +17,9 @@ void Prevorder(BTNode* root)
 		printf("NULL ");
 		return;
 	}
-	printf("%c ", root->data);//根节点数据
-	Prevorder(root->left);//左子树
-	Prevorder(root->right);//右子树
+	printf("%c ", root->data);//打印根节点数据
+	Prevorder(root->left);//左子树递归
+	Prevorder(root->right);//右子树递归
 }
 
 
