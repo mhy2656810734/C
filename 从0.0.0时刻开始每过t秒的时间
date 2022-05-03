@@ -1,0 +1,60 @@
+//输入：
+//4
+//60 61 1 2
+//输出：
+//0 1 0
+//0 2 1
+//0 2 2
+//0 2 4
+
+#include<stdio.h>
+typedef struct Time{
+    
+    int hour;
+    int minute;
+    int second;
+}Time;
+int main()
+{
+    int n=0;
+    Time time={0,0,0};
+    scanf("%d",&n);
+    int i=0;
+    for(i=0;i<n;i++)
+    {
+        int x=0;
+        scanf("%d",&x);
+        //每一步对x的值进行分析然后让时分秒增加
+        if(x<60)
+        {
+            time.second+=x;
+            
+        }
+        else if((x>=60)&&(x<=3600))
+        {
+            time.minute+=x/60;
+            time.second+=x%60;
+        }
+        else
+        {
+            time.hour+=x/3600;
+            x%=3600;
+            time.minute+=x/60;
+            x%=60;
+            time.second+=x;
+        }
+        //讨论每次x输入以后分秒的变化，满了60就需要+1
+        if(time.second>=60)
+        {
+            time.minute+=time.second/60;
+            time.second%=60;
+        }
+         if(time.minute>=60)
+        {
+            time.hour+=time.minute/60;
+             time.minute%=60;
+        }
+        printf("%d %d %d\n",time.hour,time.minute,time.second);
+    }
+    return 0;
+}
