@@ -1,0 +1,39 @@
+//gets ()函数用来从标准输入设备（键盘）读取字符串直到换行符结束，但换行符会被丢弃，然后在末尾添加'0'字符。
+
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+int My_strlen(char* p)
+{
+	char* start = p;
+	char* end = p;
+	while (*end != '\0')
+	{
+		end++;
+	}
+	return end - start;
+}
+void Reverse(char* p, int sz)
+{
+	assert(p);
+	char* left = p;
+	char* right = p + sz - 1;
+	while (*left < *right)
+	{
+		char tmp = *left;
+		*left = *right;
+		*right = tmp;
+		*(left++);
+		*(right--);
+	}
+}
+int main()
+{
+	char arr[1000] = { 0 };
+	gets(arr);
+	int sz = strlen(arr);
+	//int sz = My_strlen(arr);
+	Reverse(arr, sz);
+	printf("%s", arr);
+	return 0;
+}
