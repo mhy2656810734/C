@@ -1,0 +1,145 @@
+#include<stdio.h>
+//三数取中法，避免数据有序
+int GetMid(int* arr, int left, int right)
+{
+    int mid = (left + right) / 2;
+    if (arr[left] < arr[mid])
+    {
+        if (arr[mid] < arr[right])
+        {
+            return mid;
+        }
+        else if (arr[left] > arr[right])
+        {
+            return left;
+        }
+        else
+        {
+            return right;
+        }
+    }
+    else
+    {
+        if (arr[mid] > arr[right])
+        {
+            return mid;
+        }
+        else if (arr[left] < arr[right])
+        {
+            return left;
+        }
+        else
+        {
+            return right;
+        }
+    }
+}
+
+//交换数据
+
+
+void Swap(int* p1, int* p2)
+{
+    int tmp = *p1;
+    *p1 = *p2;
+    *p2 = tmp;
+}
+
+
+//升序
+void QuickSort(int* arr, int left, int right)
+{
+    if (left >= right)
+        return;
+    //挖坑法
+    int mid=GetMid(arr,left,right);
+    Swap(&arr[left],&arr[mid]);
+    int begin = left;
+    int end = right;
+    int key = arr[begin];
+    int pivot = begin;//让坑一开始为begin
+    while (begin < end)
+    {
+        //右边到左边找小
+        while ((begin < end) && (arr[end] >= key))
+        {
+            end--;
+        }
+        //跳出循环，将该数据放在坑位置，换坑位置
+        arr[pivot] = arr[end];
+        pivot = end;
+        //左边到右边找大
+        while ((begin < end) && (arr[begin] <= key))
+        {
+            begin++;
+        }
+        //跳出循环，将该数据放在坑位置，换坑位置
+        arr[pivot] = arr[begin];
+        pivot = begin;
+    }
+    //单趟排序已经结束，此时将key中的数据放入坑中
+    //此时end==begin，是坑位
+    pivot = begin;
+    arr[pivot] = key;
+    //递归排序左半部分和右半部分
+    QuickSort(arr, left, pivot - 1);
+    QuickSort(arr, pivot + 1, right);
+}
+
+//左右指针法
+void  Quicksort(int* arr, int left, int right)
+{
+	if (left >= right)
+	{
+		return;
+	}
+	int mid = GetMid(arr, left, right);
+	Swap(&arr[left], &arr[mid]);
+	int begin = left;
+	int end = right;
+	int key = begin;
+	while (begin < end)
+	{
+		//右边找大
+		while ((begin < end) && (arr[end] <= arr[key]))
+		{
+			end--;
+		}
+		//左边找小
+		while ((begin < end) && (arr[begin] >= arr[key]))
+		{
+			begin++;
+		}
+		Swap(&arr[begin], &arr[end]);
+	}
+	//单趟排完后，将关键字与此时begin==end数据交换，再递归
+	Swap(&arr[begin], &arr[key]);
+	Quicksort(arr, left, begin - 1);
+	Quicksort(arr, begin + 1, right);
+}
+
+int main()
+{
+    int arr[1000];
+    int n = 0;
+    int k=0;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+    scanf("%d",&k);
+    if(k==0)
+    {
+         QuickSort(arr, 0, n - 1);
+    }
+   else
+   {
+        Quicksort(arr,0,n-1);
+   }
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
