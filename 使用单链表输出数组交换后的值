@@ -23,7 +23,7 @@ SLNode* BuySListNode(int x)
     }
 }
 
-//尾插数据
+// 尾插数据
 void SListPushBack(SLNode** pphead, int x)
 {
     SLNode* newnode = BuySListNode(x);
