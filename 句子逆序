@@ -1,0 +1,33 @@
+//将一个英文语句以单词为单位逆序排放。例如“I am a boy”，逆序排放后为“boy a am I”
+//所有单词之间用一个空格隔开，语句中除了英文字母外，不再包含其他字符
+//输入一个英文语句，每个单词用空格隔开。保证输入只包含空格和字母。
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str[1000]={0};
+    char str1[26]={0};
+    gets(str);
+    int len = strlen(str);
+    int j = 0;// 表示数组str1的下标
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (str[i] != ' ')
+        {
+            str1[j++] = str[i];// 倒着从最后面不为空格的字母放入数组str1
+        }
+        if((str[i] == ' ')|| i==0)  // 当出现空格或者i以及为0时就开始打印str1中的数据
+        {
+
+            for (int z = j-1; z >= 0; z--)// 倒着打印
+            {
+                printf("%c", str1[z]);
+            }
+            printf(" ");
+            //一趟打印完后，将下标j置为0，继续进行操作
+            j = 0;
+        }
+    }
+    return 0;
+}
