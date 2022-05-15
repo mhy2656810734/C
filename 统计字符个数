@@ -1,0 +1,28 @@
+//编写一个函数，计算字符串中含有的不同字符的个数。字符在 ASCII 码范围内( 0~127 ，包括 0 和 127 )，
+//换行表示结束符，不算在字符里。不在范围内的不作统计。多个相同的字符只计算一次
+//例如，对于字符串 abaca 而言，有 a、b、c 三种不同的字符，因此输出 3 。
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+    int arr[128] = {0};//字符范围0~127
+    char str[400];
+    int num = 0;
+    int asc = 0;//表示arr数组的下标
+    scanf("%s",str);
+    //gets(str);
+    int len = strlen(str);
+    for(int i=0;i<len;i++)
+    {
+        asc = (int)str[i];//将每个字符转换成整型数字，通过判断该下标的值是否为0来判断
+                          //是否出现过
+        if(arr[asc] ==0)
+        {
+            arr[asc]++;
+            num++;
+        }
+    }
+    printf("%d",num);
+    return 0;
+}
