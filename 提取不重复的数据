@@ -1,0 +1,23 @@
+//输入一个 int 型整数，按照从右向左的阅读顺序，返回一个不含重复数字的新的整数。
+//保证输入的整数最后一位不是 0 。
+//按照从右向左的阅读顺序，返回一个不含重复数字的新的整数
+//输入：9876673
+//输出：37689
+#include<stdio.h>
+int main()
+{
+    int data = 0;
+    scanf("%d",&data);
+    int arr[10] = {0};
+    while(data!=0) //以此来打印data数据的全部位置
+    {
+        int tmp = data%10;
+        if(arr[tmp] == 0)  //如果等于0说明数字tmp还未打印
+        {
+            arr[tmp]++;  //表示该数字tmp已经打印过
+            printf("%d",tmp);
+        }
+        data/=10;
+    }
+    return 0;
+}
