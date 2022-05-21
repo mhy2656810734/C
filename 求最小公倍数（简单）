@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	int a = 0;
+	int b = 0;
+	scanf("%d %d", &a, &b);
+	int i = 1;
+	// 求最小公倍数    
+	// a*i == b*j == 最小公倍数
+	while (a * i % b)
+	{
+		i++;
+	}
+	printf("%d", i * a);
+	return 0;
+}
