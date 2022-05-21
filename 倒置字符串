@@ -1,0 +1,42 @@
+// i like beijing   --->>    beijing  like i
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+void reverse(char* left, char* right)
+{
+	assert(left && right);
+	while (left < right)
+	{
+		char tmp = *left;
+		*left = *right;
+		*right = tmp;
+		left++;
+		right--;
+	}
+}
+int main()
+{
+	char str[101] = { 0 };
+	gets(str);
+	int len = strlen(str);
+	// 整体翻转
+	reverse(str, str + len - 1);
+	// 每个单词翻转
+	char* start = str;
+	while (*start != '\0')
+	{
+		char* end = start;
+		while (*end != ' ' && *end != '\0')
+		{
+			end++;
+		}
+		reverse(start, end - 1);
+		if (*end != '\0')
+		{
+			end++;  // 继续翻转下一个单词
+		}
+		start = end;
+	}
+	printf("%s\n", str);
+	return 0;
+}
