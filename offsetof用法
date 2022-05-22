@@ -1,5 +1,5 @@
 
-//offsetof   返回的是成员变量的偏移量   头文件是  stddef.h
+//offsetof    返回的是成员变量的偏移量   头文件是  stddef.h
 #include<stdio.h>
 #include<stddef.h>
 struct S
