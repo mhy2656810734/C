@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+
+
+int main()
+
+{
+
+	char killer = 'A';
+
+	for (; killer <= 'D'; killer++)
+
+	{
+
+		if ((killer != 'A') + (killer == 'C') + (killer == 'D') + (killer != 'D') == 3)
+
+		{
+
+			printf("凶手是%c\n", killer);
+
+		}
+
+	}
+
+	return 0;
+
+}
