@@ -1,0 +1,67 @@
+//现在有一种密码变换算法。
+//九键手机键盘上的数字与字母的对应： 1--1， abc--2, def--3, ghi--4, jkl--5, mno--6, pqrs--7, tuv--8 wxyz--9, 0--0，把密码中出现的小写字母都变成九键键盘对应的数字，如：a 变成 2，x 变成 9.
+//而密码中出现的大写字母则变成小写之后往后移一位，如：X ，先变成小写，再往后移一位，变成了 y ，例外：Z 往后移是 a 。
+//数字和其它的符号都不做变换。
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str[101];
+    scanf("%s",str);
+    int len = strlen(str);
+    for(int i =0;i<len;i++)
+    {
+        if(islower(str[i]))
+        {
+            if(str[i]>='a'&&str[i]<='c')
+            {
+                str[i]='2';
+            }
+            else if (str[i]>='d'&&str[i]<='f')
+            {
+                str[i]='3';
+            }
+            else if(str[i]>='g'&&str[i]<='i')
+            {
+                str[i]='4';
+            }
+            else if(str[i]>='j'&&str[i]<='l')
+            {
+                str[i]='5';
+            }
+            else if(str[i]>='m'&&str[i]<='o')
+            {
+                str[i]='6';
+            }
+             else if(str[i]>='p'&&str[i]<='s')
+             {
+                 str[i]='7';
+             }
+             else if(str[i]>='t'&&str[i]<='v')
+             {
+                 str[i]='8';
+             }
+             else if(str[i]>='w'&&str[i]<='z')
+             {
+                 str[i]='9';
+             }
+            else
+            {
+                str[i]='0';
+            }
+        }
+        else if(isupper(str[i]))
+        {
+            if(str[i]=='Z')
+            {
+                str[i]='a';
+            }
+            else
+            {
+                str[i]=str[i]+33;
+            }
+        }
+    }
+    printf("%s",str);
+    return 0;
+}
