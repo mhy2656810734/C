@@ -1,0 +1,27 @@
+/**
+ * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+ *
+ * 
+ * @param n int整型 最大位数
+ * @return int整型一维数组
+ * @return int* returnSize 返回数组行数
+ *
+ * C语言声明定义全局变量请加上static，防止重复定义
+ */
+static int s[100000];
+int* printNumbers(int n, int* returnSize ) {
+    // write code here
+    int k = 9;
+    for (int i = 1; i< n; i++)
+    {
+        // 统计需要打印的个数
+        k = k*10 + 9;
+    }
+    int j = 0;
+    for (; j < k; j++)
+    {
+        s[j] = j+1;
+    }
+    *returnSize = j;
+    return s;
+}
