@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+    int num;
+    while (scanf("%d",&num) != EOF)
+    {
+        int sum = num * num - num + 1;
+        printf("%d",sum);
+        for (int i = 1; i < num; i++)
+        {
+            int temp = sum + i *2;
+            printf("+%d",temp);
+        }
+        printf("\n");
+    }
+    return 0;
+}
