@@ -1,0 +1,34 @@
+/**
+ * 
+ * @param rotateArray int整型一维数组 
+ * @param rotateArrayLen int rotateArray数组长度
+ * @return int整型
+ *
+ * C语言声明定义全局变量请加上static，防止重复定义
+ */
+int minNumberInRotateArray(int* rotateArray, int rotateArrayLen ) {
+    // write code here
+    int left = 0;
+    int right = rotateArrayLen - 1;
+    while (left < right)
+    {
+        int mid = (left + right) / 2;
+        if (rotateArray[mid] < rotateArray[right])
+        {
+            // 说明最小值就在left - mid 之间
+            right = mid;
+        }
+        else if (rotateArray[mid] > rotateArray[right])
+        {
+            // 说明此时最小值就在 mid+1 - right之间
+            left = mid + 1;
+        }
+        else
+        {
+            // 此时并不能判断最小值在哪个区间,所以我们缩小right的值
+            right -= 1;
+        }
+    }
+    
+    return rotateArray[left];
+}
