@@ -1,0 +1,38 @@
+int cmp_int(const void*e1,const void* e2)
+ {
+     return *(int*)e1 - *(int*)e2;
+ }
+int* findErrorNums(int* nums, int numsSize, int* returnSize){
+    // 首先对数组进行排序
+    qsort(nums,numsSize,sizeof(int),cmp_int);
+    int* arr = malloc(sizeof(int) * 2);
+    * returnSize = 2;
+    if (arr == NULL)
+    {
+        printf("开辟空间失败\n");
+        return NULL;
+    }
+    int prev = 0;// 表示数组的前一个下标的数据
+    for (int i = 0; i < numsSize; i++)
+    {
+        int cur = nums[i];// 记录数组当前下标的数据
+        if (cur == prev) 
+        {
+            // 如果前后两个数据相同，就将其放入arr下标0处
+            arr[0] = cur;
+        }
+        else if (cur - prev > 1) 
+        {
+            // 如果差值大于 1 的话，arr下标1处的数据就前一个数据+1
+            arr[1] = prev+1;
+        }
+        prev = cur;
+    }
+
+    // 还要判断最后一个数据的情况
+    if (nums[numsSize -1] != numsSize)
+    {
+        arr[1] = numsSize;
+    }
+    return arr;
+}
