@@ -1,0 +1,354 @@
+// 头文件
+// 头文件 Contact.h
+#define MAX 100
+#define MAX_NAME 20
+#define MAX_SEX 5
+#define MAX_TELE 20
+#define MAX_ADDR 30
+#define SZ 2
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+#include<errno.h>
+#include<stdlib.h>
+// 联系人信息
+typedef struct Peoinfo
+{
+	char name[MAX_NAME];
+	char sex[MAX_SEX];
+	int age;
+	char tele[MAX_TELE];
+	char addr[MAX_ADDR];
+}Peoinfo;
+
+
+// 通讯录 动态版本
+typedef struct Contact
+{
+	struct Peoinfo* data;// 存放联系人信息
+	int count;// 记录当前通讯录人数
+	int capacity;// 记录每次开辟的空间的容量
+}Contact;
+
+
+
+// 初始化通讯录
+void InitContact(Contact* pc);
+// 添加联系人
+void AddContact(Contact* pc);
+// 显示联系人
+void ShowContact(const Contact* pc);
+// 删除联系人
+void DelContact(Contact* pc);
+// 查找联系人
+void SearchContact(const Contact* pc);
+// 修改联系人的信息
+void ModifyContact(Contact* pc);
+// 进行排序
+void SortContact(Contact* pc);
+// 销毁通讯录
+void Destoy(Contact* pc);
+// 保存信息
+void SaveContact(const Contact* pc);
+// 将文件中的数据加载到通讯录中
+void LoadContact(Contact* pc);
+
+// 函数实现contact.c
+#include"Contact.h"
+// 函数实现
+
+// 检查容量
+static void check_sys(Contact* pc)
+{
+	assert(pc);
+	if (pc->count == pc->capacity)
+	{
+		// 满了扩容
+		Peoinfo* ps = (Peoinfo*)realloc(pc->data, (pc->capacity + 2) * sizeof(Peoinfo));
+		if (ps == NULL)
+		{
+			printf("CAPACITY::%s\n", strerror(errno));
+			return;
+		}
+		// 正常使用
+		pc->data = ps;
+		pc->capacity += 2;
+		printf("增容成功\n");
+	}
+	else
+	{
+		return;
+	}
+}
+
+// 加载数据
+void LoadContact(Contact* pc)
+{
+	FILE* pfRead = fopen("contact.txt", "rb");// 以二进制形式读
+	if (pfRead == NULL)
+	{
+		perror("LoadContact");
+		return;
+	}
+	// 正常读入数据
+	Peoinfo tmp;
+	while (fread(&tmp, sizeof(Peoinfo), 1, pfRead))
+	{
+		check_sys(pc);// 检查容量
+		pc->data[pc->count] = tmp;
+		pc->count++;
+	}
+	fclose(pfRead);
+	pfRead = NULL;
+}
+
+
+// 初始化通讯录
+void InitContact(Contact* pc)
+{
+	pc->count = 0;
+	Peoinfo* ps = (Peoinfo*)calloc(3, sizeof(Peoinfo));
+	if (ps == NULL)
+	{
+		printf("初始化失败\n");
+		return;
+	}
+	// 正常使用
+	pc->data = ps;
+	pc->capacity = 3;
+	// 将文件中的联系人加载到通讯录中
+	LoadContact(pc);
+}
+
+// 添加联系人
+void AddContact(Contact* pc)
+{
+	assert(pc);
+	// 判断是否满容
+	check_sys(pc);
+	// 正常添加
+	printf("请输入姓名:\n");
+	scanf("%s", pc->data[pc->count].name);
+	printf("请输入年龄\n");
+	scanf("%d", &pc->data[pc->count].age);
+	printf("请输入性别:\n");
+	scanf("%s", pc->data[pc->count].sex);
+	printf("请输入电话:\n");
+	scanf("%s", pc->data[pc->count].tele);
+	printf("请输入地址:\n");
+	scanf("%s", pc->data[pc->count].addr);
+	pc->count++;
+	printf("添加成功\n");
+}
+
+// 显示联系人
+void ShowContact(const Contact* pc)
+{
+	assert(pc);
+	printf("%-20s\t%-5s\t%-5s\t%-20s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+	for (int i = 0; i < pc->count; i++)
+	{
+		printf("%-20s\t%-5d\t%-5s\t%-20s\t%-30s\n", pc->data[i].name,
+			pc->data[i].age,
+			pc->data[i].sex,
+			pc->data[i].tele,
+			pc->data[i].addr);
+	}
+}
+
+// 查找联系人
+int findName(Contact* pc)
+{
+	assert(pc);
+	char name[MAX_NAME];
+	printf("请输入你要进行操作的联系人的名字\n");
+	scanf("%s", name);
+	for (int i = 0; i < pc->count; i++)
+	{
+		if (strcmp(pc->data[i].name, name) == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+// 删除联系人
+void DelContact(Contact* pc)
+{
+	assert(pc);
+	int pos = findName(pc);
+
+	if (pos == -1)
+	{
+		printf("没有你要查找的联系人\n");
+		return;
+	}
+	// 正常删除
+	// 循环向前覆盖
+	for (int i = pos; i < pc->count - 1; i++)
+	{
+		pc->data[i] = pc->data[i + 1];
+	}
+	pc->count--;
+	printf("删除成功\n");
+}
+
+
+// 查找联系人
+void SearchContact(const Contact* pc)
+{
+	assert(pc);
+	int pos = findName(pc);
+
+	if (pos == -1)
+	{
+		printf("没有你要查找的联系人\n");
+		return;
+	}
+	printf("查找成功,信息如下\n");
+	printf("%-20s\t%-5s\t%-5s\t%-20s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+	printf("%-20s\t%-5d\t%-5s\t%-20s\t%-30s\n", pc->data[pos].name,
+		pc->data[pos].age,
+		pc->data[pos].sex,
+		pc->data[pos].tele,
+		pc->data[pos].addr);
+}
+
+// 修改联系人的信息
+void ModifyContact(Contact* pc)
+{
+	assert(pc);
+	int pos = findName(pc);
+	if (pos == -1)
+	{
+		printf("没有你要修改信息的联系人\n");
+		return;
+	}
+	printf("请输入姓名:\n");
+	scanf("%s", pc->data[pos].name);
+	printf("请输入年龄\n");
+	scanf("%d", &pc->data[pos].age);
+	printf("请输入性别:\n");
+	scanf("%s", pc->data[pos].sex);
+	printf("请输入电话:\n");
+	scanf("%s", pc->data[pos].tele);
+	printf("请输入地址:\n");
+	scanf("%s", pc->data[pos].addr);
+	printf("修改成功\n");
+}
+
+// 排序函数
+int cmp_by_name(const void* e1, const void* e2)
+{
+	assert(e1 && e2);
+	return strcmp(((Peoinfo*)e1)->name, ((Peoinfo*)e2)->name);
+}
+
+// 进行排序
+void SortContact(Contact* pc)
+{
+	assert(pc);
+	qsort(pc->data, pc->count, sizeof(Peoinfo), cmp_by_name);
+	printf("排序成功\n");
+}
+
+// 销毁通讯录
+void Destoy(Contact* pc)
+{
+	pc->count = 0;
+	pc->capacity = 0;
+	free(pc->data);
+	pc->data = NULL;
+}
+
+// 保存信息
+void SaveContact(const Contact* pc)
+{
+	assert(pc);
+	// 以二进制的形式将数据写入文件中
+	FILE* pfWrite = fopen("contact.txt", "wb");
+	if (pfWrite == NULL)
+	{
+		perror("SaveContact");
+		return;
+	}
+	// 正常写入文件
+	for (int i = 0; i < pc->count; i++)
+	{
+		fwrite(&pc->data[i], sizeof(Peoinfo), 1, pfWrite);
+	}
+	printf("保存成功\n");
+	fclose(pfWrite);
+	pfWrite = NULL;
+}
+
+// 测试text.c
+
+#include"Contact.h"
+
+// 菜单
+void menu()
+{
+	printf("=====1.add       2.del      ====\n");
+	printf("=====3.search    4.modify   ====\n");
+	printf("=====5.show      6.sort     ====\n");
+	printf("=====7.save      0.exit     ====\n");
+}
+
+// 枚举操作
+enum Option
+{
+	EXIT,
+	ADD,
+	DEL,
+	SEARCH,
+	MODIFY,
+	SHOW,
+	SORT,
+	SAVE
+};
+int main()
+{
+	int input = 0;
+	Contact con;// 通讯录
+	InitContact(&con);
+	do
+	{
+		menu();
+		printf("请输入你的选择:\n");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case ADD:
+			AddContact(&con);
+			break;
+		case DEL:
+			DelContact(&con);
+			break;
+		case SEARCH:
+			SearchContact(&con);
+			break;
+		case MODIFY:
+			ModifyContact(&con);
+			break;
+		case SHOW:
+			ShowContact(&con);
+			break;
+		case SORT:
+			SortContact(&con);
+			break;
+		case EXIT:
+			Destoy(&con);
+			printf("退出程序\n");
+			break;
+		case SAVE:
+			SaveContact(&con);
+			break;
+		default:
+			printf("输入有误，请重新输入\n");
+			break;
+		}
+	} while (input);
+	return 0;
+}
