@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+int main()
+{
+    int n = 0;
+   
+    scanf("%d",&n);
+    while (n > 0)
+    {  
+         char arr[101];
+        n--;
+        scanf("%s",arr);
+        int len = strlen(arr);
+        int count1 = 0;// 记录大写字母
+        int count2 = 0;// 记录小写字母
+        int count3 = 0;// 记录数字
+        int count4 = 0;// 记录非字母数字的符号
+        for (int i = 0; i < len; i++)
+        {
+            if (isupper(arr[i]) > 0)
+            {
+                count1 = 1;
+            }
+            if (isdigit(arr[i]) > 0)
+            {
+                count3 = 1;
+            }
+            if (islower(arr[i]) > 0)
+            {
+                count2 = 1;
+            }
+            if (isalnum(arr[i]) == 0)
+            {
+                count4 = 1;
+            }
+            
+        }
+        int sum = count1+count2+count3;
+        if ((isdigit(arr[0]) != 0) ||(len < 8)|| (sum < 2) ||(count4 == 1) )
+        {
+            printf("NO\n");
+        }
+        else
+        {
+            printf("YES\n");
+        }
+        
+    }
+    return 0;
+}
