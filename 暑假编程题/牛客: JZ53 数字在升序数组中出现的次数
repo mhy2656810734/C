@@ -1,0 +1,20 @@
+int GetNumberOfK(int* data, int dataLen, int k ) {
+    // write code here
+    int count = 0;
+    int left = 0;
+    int right = dataLen - 1;
+         while (left <= right)
+        {
+        if (data[left] == k)
+        {
+            count++;
+        }
+        if (data[right] == k && left != right)
+        {
+            count++;
+        }
+        left++;
+        right--;
+    }
+     return count;
+}
