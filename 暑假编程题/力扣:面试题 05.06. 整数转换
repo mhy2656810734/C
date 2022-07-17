@@ -1,0 +1,11 @@
+int convertInteger(int A, int B){
+    unsigned int sum = A^B;
+    int count = 0;
+    // 得到这个数字以后我们统计1的个数
+    while (sum != 0)
+    {
+        count++;
+        sum = sum&(sum-1);
+    }
+    return count;
+}
