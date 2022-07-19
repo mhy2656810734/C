@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<string.h>
+int cmp_char(const void* e1,const void*e2)
+{
+      return (*(char*)e1 - *(char*)e2);
+}
+int main()
+{
+    char arr[1001];
+    scanf("%s",arr);
+    int len = strlen(arr);
+    qsort(arr,len,sizeof(arr[0]),cmp_char);
+    printf("%s\n",arr);
+    return 0;
+}
