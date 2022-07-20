@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<string.h>
+void find_signle_dog(int arr[], int sz, int* pd1, int* pd2)
+{
+    // 首先异或进行分组
+    int sum = 0;
+    for (int i = 0; i < sz; i++)
+    {
+        sum ^= arr[i];
+    }
+    // 记录第几个位置是0或者1
+    int pos = 0;
+    for (pos = 0; pos < 32; pos++)
+    {
+        if ((sum >> pos) & 1 == 1)
+        {
+            break;
+        }
+    }
+    // 此时根据右移pos得到的数据是0还是1进行分组
+    for (int i = 0; i < sz; i++)
+    {
+        if ((arr[i] >> pos) & 1 == 1)
+        {
+            *pd1 ^= arr[i];
+        }
+        else
+        {
+            *pd2 ^= arr[i];
+        }
+    }
+}
+int main()
+{
+    int arr[] = { 1,2,3,4,5,1,2,3,4,6 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    int dog1 = 0;
+    int dog2 = 0;
+    find_signle_dog(arr, sz, &dog1, &dog2);
+    printf("%d %d\n",dog1, dog2);
+    return 0;
+}
