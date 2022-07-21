@@ -1,0 +1,10 @@
+//定义一个宏，交换二进制位的奇偶位
+#include<stdio.h>      // 保留偶数位并左移一位   保留奇数位并右移一位
+#define SWAP_BIT(n) n= (((n&0x55555555)<<1) + ((n&0xaaaaaaaa)>>1))
+int main()
+{
+	int n = 10;
+	SWAP_BIT(n);
+	printf("%d\n", n);
+	return 0;
+}
