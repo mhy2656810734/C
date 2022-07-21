@@ -1,0 +1,37 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* selfDividingNumbers(int left, int right, int* returnSize){
+    int count = 0;// 统计有多少个自除数
+      int * ret = (int*)malloc(sizeof(int)*(right - left));
+    int z = 0;// 表示arr的下标
+    for (int i = left; i <= right; i++)
+    {
+        // 避免i值被修改
+        int  n = i;
+        int flag = 0;// 用来标记是不是自除数
+        while (n)
+        {
+            int index = n % 10;
+            if (index == 0 || i % index != 0)
+            {
+                flag = 1;
+                break;
+            } 
+            else
+            {
+                n /= 10;
+            }
+        }
+        if (flag == 0)
+        {
+            count++;
+            ret[z++] = i;
+        }
+    }
+  
+    // 然后将数组中的数据放入
+    *returnSize = z;
+    return ret;
+
+}
