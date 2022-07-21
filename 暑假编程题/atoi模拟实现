@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<assert.h>
+#include<limits.h>
+enum Status
+{
+	VALID,
+	INVALID
+}sta = INVALID;// 默认是字符串是非法的
+int my_atoi(char str[])
+{
+	// 我们必须考虑字符串的各种情况
+	// 1.空指针
+	// 2.空字符串
+	// 3.空格
+	// 4.+- 号
+	// 5.越界
+	// 6.非数字字符
+	assert(str);// 断言不能1的情况
+	// 默认是非法的，此时返回的这个是2.空字符串
+	if (*str == '\0')
+	{
+		return 0;
+	}
+	// 处理3
+	while (isspace(*str))
+	{
+		str++;
+	}
+	// 根据正负号 分情况
+	int flag = 1;// 标记正负号
+	if (*str == '+')
+	{
+		flag = 1;
+		str++;
+	}
+	else if (*str == '-')
+	{
+		flag = -1;
+		str++;
+	}
+	long long ret = 0;
+	// 开始正常统计
+	while (*str)
+	{
+		// 如果是字符就开始统计
+		if (isdigit(*str))
+		{
+			ret = ret * 10 + flag * (*str - '0');
+			// 讨论越界的情况
+			if (ret > INT_MAX || ret < INT_MIN)
+			{
+				return 0;
+			}
+		}
+		// 不是数字字符的话直接返回
+		else
+		{
+			return (int)ret;
+		}
+		str++;
+	}
+	// 如果统计到字符串的末尾 说明字符串都是数字字符，是合法的
+	if (*str == '\0')
+	{
+		sta = VALID;
+	}
+        return (int)ret;
+}
+int main()
+{
+	char arr[20] = "-12345";
+	int ret = my_atoi(arr);
+	if (sta == INVALID)
+	{
+		printf("非法转换：%d", ret);
+		return 0;
+	}
+	else
+	{
+		printf("合法转换：%d\n", ret);
+		return 0;
+	}
+	printf("%d\n", ret);
+	return 0;
+}
