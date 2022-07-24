@@ -1,0 +1,26 @@
+#include<stdio.h>
+int main()
+{
+    int n = 0;
+    scanf("%d",&n);
+    int count = 0;// 统计完全数的个数
+    for (int i = 1; i <=n; i++)
+    {
+        int sum = 0;
+        int j = i;
+        for (int s = 1;s < j;s++)
+        {
+            if (j % s == 0)
+            {
+                sum += s;
+            }
+        }
+      
+        if (sum == i)
+        {
+            count++;
+        }
+    }
+    printf("%d\n",count);
+    return 0;
+}
