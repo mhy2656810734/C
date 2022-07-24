@@ -1,0 +1,31 @@
+ // 先统计空格的个数
+    char* cur = str;
+    int count = 0;
+    while (*cur)
+    {
+        if (*cur == ' ')
+        {
+             count++;
+        }
+       
+        cur++;
+    }
+    // 然后创建两个下标，一个指向字符串末尾
+    // 一个指向替换后的字符串的末尾
+    int end1 = length - 1;
+    int end2 = length + count*2 - 1;// 一个空格需要替换三个字符。所以增加两个位置
+       while(end1 != end2)
+        {
+        if (str[end1] != ' ')
+        {
+            str[end2--] = str[end1--];
+        }
+        else
+        {
+            end1--;
+            str[end2--] = '0';
+            str[end2--] = '2';
+            str[end2--] = '%';
+        }
+    }
+	}
