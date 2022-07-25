@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+#include<ctype.h>
+void reverse(char* str, char*end)
+{
+    assert(str && end);
+    while (str < end)
+    {
+        char temp = *str;
+        *str = *end;
+        *end = temp;;
+        end--;
+        str++;
+    }
+
+
+
+}
+int main()
+{
+    char str[100001];
+    gets(str);
+    // 先将所有的非单词字符转换成空格
+    int len = strlen(str);
+    for (int i = 0; i < len; i++)
+    {
+        if (isalpha(str[i]) == 0)
+        {
+            str[i] = ' ';
+        }
+    }
+    // 然后翻转字符串
+    reverse(str, str+len-1);
+    // 开始部分翻转
+    char* start = str;
+    // 不是斜杠0就继续遍历
+    while (*start)
+    {
+        char* end = start;
+        while (*end != ' ' && *end != '\0')
+        {
+            end++;
+        }
+        // 此时说明end走到了空格或者字符串末尾
+        // 进行交换
+        reverse(start, end - 1);
+        // 开始判断end此时是空格还是字符串末尾
+        if (*end != '\0')
+        {
+            // 不是斜杠0说明是空格，此时让start跳过这个空格   
+            start = end + 1;
+        }
+        else
+        {
+            start = end;
+        }
+    }
+    printf("%s\n", str);
+    return 0;
+}
