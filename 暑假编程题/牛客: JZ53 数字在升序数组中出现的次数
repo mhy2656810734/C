@@ -18,3 +18,4 @@ int GetNumberOfK(int* data, int dataLen, int k ) {
     }
      return count;
 }
+// 思路二:先找到左边数据的下标  然后找到右边数据的下标    然后用右边 - 左边
