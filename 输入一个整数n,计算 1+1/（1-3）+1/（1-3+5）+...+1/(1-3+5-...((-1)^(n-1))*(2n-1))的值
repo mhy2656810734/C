@@ -9,7 +9,7 @@ int main()
     int j = 0;
     while(n)
     {
-        int flag = 1;
+        int flag = 1;// 用来标记正负号
         float sum = 0.0;
         for (j = 1; j <= n; j++)
         {
